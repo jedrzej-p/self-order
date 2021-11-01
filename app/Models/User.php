@@ -3,14 +3,23 @@
 namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Notifications\ResetPassword as ResetPasswordNotification;
+use App\Notifications\VerifyEmail as VerifyEmailNotification;
 use Laravel\Passport\HasApiTokens;
 
-class User extends Authenticatable
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Exception;
+use Auth;
+use Validator;
+
+class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, Notifiable;
+
+    protected $dates = [ "created_at", "updated_at" ];
 
     /**
      * The attributes that are mass assignable.
@@ -18,9 +27,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name',
-        'email',
-        'password',
+        'name', 'email', 'password'
     ];
 
     /**
@@ -29,8 +36,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password',
-        'remember_token',
+        'password', 'remember_token',
     ];
 
     /**
@@ -42,18 +48,40 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function post()
+    /**
+     * Send the password reset notification.
+     *
+     * @param  string  $token
+     * @return void
+     */
+    public function sendPasswordResetNotification($token)
     {
-        return $this->belongsTo('App\Models\Post', 'user_id');
+        $this->notify(new ResetPasswordNotification($token));
     }
 
-    public function post_comment()
-    {
-        return $this->belongsTo('App\Models\PostComment', 'user_id');
+    /**
+     * Send the email verification notification.
+     *
+     * @return void
+     */
+    public function sendEmailVerificationNotification()
+    { 
+        $this->notify(new VerifyEmailNotification);
     }
 
-    public function event()
-    {
-        return $this->belongsTo('App\Models\Event', 'user_id');
+    public static function GetLogged(Request $request) {
+        return $request->user()->toArray(true);
     }
+
+    public static function ValidateRequest(Request $request, $id = null) {
+        $exceptRule = empty($id) ? "" : ",{$id}";
+        $rules = [
+            'email' => "required|string|email|max:255|unique:users,email{$exceptRule}"
+        ];
+        if (empty($id)) {
+            $rules['password'] = 'required|string|min:8|confirmed';
+        }
+        $request->validate($rules);
+    }
+
 }

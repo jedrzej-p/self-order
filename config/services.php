@@ -30,4 +30,10 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'ebexo' => [
+        'url' => env('EBEXO_URL'),
+        'login' => env('EBEXO_LOGIN'),
+        'password' => env('EBEXO_PASSWORD'),
+    ],
+
 ];

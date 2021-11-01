@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pl">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+        <title>SelfOrder - offline</title>
+        <link rel="icon" href="/offline/favicon.ico" />
+        <link href="/offline/css/app.css" rel="stylesheet" />
+    </head>
+    <body>
+        <div class="main-container main-container-home" style="background-image: url('/offline/images/home.png');">
+            <nav class="navbar">
+                <div class="container">
+                    <button type="button" data-toggle="collapse" data-target="#main-navbar" aria-label="Rozwiń menu" aria-expanded="false" class="navbar-toggler collapsed"><span class="navbar-toggler-icon"></span></button>
+                    <div id="main-navbar" class="collapse navbar-collapse">
+                        <ul class="navbar-nav text-center ml-auto" style="padding-top: 0.5rem; padding-bottom: 1rem;">
+                            <li class="nav-item"><a href="/" aria-current="page" class="nav-link text-uppercase router-link-exact-active router-link-active">Strona główna</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <main class="main">
+                <div class="container mt-4">
+                    <div class="row mb-4">
+                        <div class="col-12 text-center"><img src="/offline/images/home-title.png" alt="" style="max-width: 100%;" /></div>
+                    </div>
+                    <div class="row mb-4">
+                        <div class="col-12 text-center"><img src="/offline/images/home-logo.png" alt="" style="max-width: 140px;" /></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 text-center">
+                            <div id="online" style="display: none;" class="alert alert-success">Sieć znowu działa.<br /><a href="javascript: window.location.reload();">Wczytaj stronę główną.</a></div>
+                            <div class="alert alert-warning">Jesteś obecnie w trybie offline.</div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <script src="/offline/js/scripts.js"></script>
+    </body>
+</html>

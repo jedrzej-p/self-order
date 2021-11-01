@@ -1,4 +1,4 @@
-const mix = require('laravel-mix');
+const mix = require("laravel-mix");
 
 /*
  |--------------------------------------------------------------------------
@@ -6,28 +6,24 @@ const mix = require('laravel-mix');
  |--------------------------------------------------------------------------
  |
  | Mix provides a clean, fluent API for defining some Webpack build steps
- | for your Laravel applications. By default, we are compiling the CSS
+ | for your Laravel application. By default, we are compiling the Sass
  | file for the application as well as bundling up all the JS files.
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
-    .js('resources/js/bootstrap.js', 'public/js')
-    .sass('resources/sass/styles.scss', 'public/css')
-    .postCss("resources/css/app.css", "public/css", [
-        require("tailwindcss"),
-    ]);
-
-if (mix.inProduction()) {
-    mix.version();
-    mix.sourceMaps();
-}
-
 mix.webpackConfig({
     resolve: {
         alias: {
-            '@views': path.resolve(__dirname, 'resources/js/views'),
-            '@components': path.resolve(__dirname, 'resources/js/components')
+            vue$: "vue/dist/vue.esm.js",
+            "@": __dirname + "/resources/js",
         },
     },
-})
+});
+
+mix.disableNotifications();
+
+if (mix.inProduction()) {
+    mix.version();
+}
+
+mix.js("resources/js/app.js", "public/js").extract(["axios", "bootstrap", "es6-promise", "jquery", "lodash", "moment", "popper.js", "quill", "v-autocomplete", "vue", "vue-quill-editor", "vue-router", "vuex"]).sass("resources/sass/app.scss", "public/css").copy("public/css/app.css", "public/offline/css/app.css");

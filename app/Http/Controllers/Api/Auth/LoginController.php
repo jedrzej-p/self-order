@@ -1,25 +1,64 @@
 <?php
+
 namespace App\Http\Controllers\Api\Auth;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
+
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use App\Models\User;
+use App\Models\Tools;
+use Auth;
+use Exception;
+use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
-    public function login()
+
+    use AuthenticatesUsers;
+
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
     {
-        $credentials = [
-            'email' => request('email'),
-            'password' => request('password')
-        ];
-
-        if (Auth::attempt($credentials)) {
-            $success['token'] = Auth::user()->createToken('MyApp')->accessToken;
-            $success['email'] = Auth::user()->email;
-
-            return response()->json(['success' => $success]);
-        }
-
-        return response()->json(['error' => 'Błąd logowania'], 422);
+        $this->middleware('guest')->except('logout');
     }
+
+    /**
+     * Validate the user login request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return void
+     *
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    protected function validateLogin(Request $request)
+    {
+        $request->validate([
+            $this->username() => 'required|email',
+            'password' => 'required|string',
+        ]);
+    }
+
+    /**
+     * Send the response after the user was authenticated.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    protected function sendLoginResponse(Request $request, $socialsLogged = null)
+    {
+        // $request->session()->regenerate();
+
+        $this->clearLoginAttempts($request);
+
+        $token = Auth::user()->createToken( 'SelfOrder Personal Access Client' )->accessToken;
+
+        return $this->authenticated($request, $this->guard()->user())
+                ?: response()->json( $token, 200 );
+    }
+
 }

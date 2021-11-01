@@ -1,38 +1,27 @@
-import VueRouter from 'vue-router'
-window.Vue = require('vue');
-Vue.use(require('vue-resource'));
-import 'bootstrap';
-import App from './views/App'
-import Login from './views/auth/Login'
-import Register from './views/auth/Register'
-import Home from './views/MainPage'
-Vue.use(VueRouter)
+import Vue from "vue";
+import App from "./components/App";
+import store from "./store/store";
+import router from "./router/router";
+import "es6-promise/auto";
+import { isLoggedIn } from "./utils/jwt";
 
-const router = new VueRouter({
-    mode: 'history',
-    routes: [
-        {
-            path: '/',
-            name: 'home',
-            component: Home
-        },
+require("./utils/fontawesome");
+require("./bootstrap");
 
-        {
-            path: '/login',
-            name: 'login',
-            component: Login,
-        },
-        {
-            path: '/register',
-            name: 'register',
-            component: Register,
-        },
-    ],
-});
+Vue.config.productionTip = false;
 
-const app = new Vue({
-    el: '#app',
-    components: { App },
-    comments: false,
-    router,
-});
+function createApp() {
+    new Vue({
+        el: "#app",
+        store,
+        router,
+        render: (h) => h(App),
+    });
+}
+
+if (isLoggedIn()) {
+    store.dispatch("getLoggedUser")
+        .then(() => createApp());
+} else {
+    createApp();
+}

@@ -2,6 +2,7 @@
 
 namespace App\Exceptions;
 
+use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
 class Handler extends ExceptionHandler
@@ -25,7 +26,7 @@ class Handler extends ExceptionHandler
         'password_confirmation',
     ];
 
-    /**
+     /**
      * Register the exception handling callbacks for the application.
      *
      * @return void

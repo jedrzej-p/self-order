@@ -1,0 +1,22 @@
+// Fonts
+// @import url('https://fonts.googleapis.com/css?family=Nunito&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lora&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap');
+
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+
+// alertify
+@import '~alertifyjs/build/css/alertify.css';
+@import '~alertifyjs/build/css/themes/default.css';
+
+// quill
+@import '~quill/dist/quill.core.css';
+@import '~quill/dist/quill.snow.css';
+@import '~quill/dist/quill.bubble.css';
+
+// Styles
+@import 'styles';

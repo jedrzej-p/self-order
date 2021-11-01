@@ -1,0 +1,130 @@
+// * * { border:2px solid #89A81E }
+// * * * { border:2px solid #F34607 }
+// * * * * { border:2px solid #5984C3 }
+// * * * * * { border:2px solid #CD1821 }
+// * * * * * * { border:2px dotted #89A81E }
+// * * * * * * * { border:2px dotted #F34607 }
+// * * * * * * * * { border:2px dotted #5984C3 }
+// * * * * * * * * * { border:2px dotted #CD1821 }
+
+[v-cloak] {
+    display: none;
+}
+
+a {
+    word-break: break-all;
+}
+
+.app-loader {
+    display: none;
+}
+body.is-loading .app-loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 100%;
+}
+
+// quill
+.quill-editor {
+    .ql-toolbar {
+        border-top-left-radius: 0.25rem;
+        border-top-right-radius: 0.25rem;
+        text-align: right;
+        .ql-formats {
+            margin-right: 0 !important;
+        }
+    }
+    .ql-container {
+        min-height: 150px;
+        border-bottom-left-radius: 0.25rem;
+        border-bottom-right-radius: 0.25rem;
+        background: #fff;
+        .ql-editor {
+            min-height: 150px;
+            max-height: 500px;
+            padding: 15px;
+            &.problem-page-content {
+                height: auto;
+                padding: 0;
+            }
+            &.ql-blank::before {
+                font-style: normal !important;
+            }
+        }
+    }
+    &.is-invalid {
+        .ql-toolbar,
+        .ql-container {
+            border-color: #cd1b6f;
+        }
+        .ql-container .ql-editor {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' stroke='%23cd1b6f' viewBox='0 0 12 12'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23cd1b6f' stroke='none'/%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right calc(0.4em + 0.1875rem) top 0.25rem;
+            background-size: calc(0.8em + 0.375rem) calc(0.8em + 0.375rem);
+        }
+    }
+}
+
+.ql-editor.frontend-page {
+    padding: 0;
+}
+
+html,
+body {
+    height: 100%;
+    font-family: sans-serif;
+}
+
+body,
+.main-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+body.is-loading {
+    background: #f1f2f3;
+}
+
+.main {
+    flex: 1;
+}
+
+footer {
+    width: 100%;
+    color: #333;
+    background-color: grey;
+}
+
+@media (max-width: 992px) {
+    footer p {
+        margin: 0;
+    }
+    footer .paragraph-white {
+        margin: 0;
+    }
+}
+
+#cover {
+    background: url('../images/tlo.jpg') center center no-repeat;
+    background-size: cover;
+    height: 100%;
+    text-align: center;
+    display: flex;
+    align-items: center;
+}
+
+#cover-caption {
+    width: 100%;
+}
+
+.card {
+    padding: 50px 30px;
+    background: #fff;
+    margin: auto;
+
+}
+
