@@ -1,0 +1,24 @@
+Options +Indexes
+
+#<FilesMatch "\.(jpg|jpeg|png|gif|swf)$">
+    #Header set Cache-Control "max-age=31536000, public"
+#</FilesMatch>
+
+#<FilesMatch "\.(js|css|swf)$">
+    #Header set Cache-Control "max-age=604800"
+#</FilesMatch>
+
+#<Files "manifest.webmanifest">
+   #ForceType application/json
+#</Files>
+
+RewriteEngine on
+
+RewriteCond %{HTTPS} !=on
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
+
+RewriteRule ^(.*)$ public/$1 [L]
+#RewriteRule ^(.*)$ index-upload.php [L]
