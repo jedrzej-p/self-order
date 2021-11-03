@@ -11,6 +11,16 @@ DB_DATABASE=
 DB_USERNAME=
 DB_PASSWORD=
 Można też uzupełnić pozostałe ustawienia konfiguracyjne.
+Konfiguracja pod maila:
+
+MAIL_DRIVER=smtp
+MAIL_HOST=smtp.wp.pl
+MAIL_PORT=465
+MAIL_USERNAME=supermail@wp.pl
+MAIL_PASSWORD='superhaslo'
+MAIL_ENCRYPTION=ssl
+MAIL_FROM_ADDRESS=supermail@wp.pl
+MAIL_FROM_NAME='SelfOrder'
 ## 5. Instalacja zależności na podstawie composer.json. Wewnątrz folderu z projektem:
 composer install
 ## 6. Wygenerowanie klucza aplikacji:
