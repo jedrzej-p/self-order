@@ -9,6 +9,7 @@ import Product from "../components/products/Details";
 import Cart from "../components/cart/Index";
 import Summary from "../components/cart/Summary";
 import UserOrders from "../components/profile/Orders";
+import UserFavorites from "../components/profile/Favorites";
 
 //admin
 import AdminOrders from "../components/admin/orders/Index";
@@ -30,6 +31,7 @@ export default [
     //user 
 
     { path: '/user/orders', name: 'user-orders', component: UserOrders },
+    { path: '/user/favorites', name: 'user-favorites', component: UserFavorites },
 
     //admin
 

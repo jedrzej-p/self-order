@@ -14,10 +14,11 @@ use Illuminate\Support\Facades\Hash;
 use Exception;
 use Auth;
 use Validator;
+use NotificationChannels\WebPush\HasPushSubscriptions;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasApiTokens, Notifiable;
+    use HasApiTokens, Notifiable, HasPushSubscriptions;
 
     protected $dates = [ "created_at", "updated_at" ];
 

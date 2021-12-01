@@ -3,6 +3,9 @@
         <div class="col-lg-3 col-12 menu">
             <router-link :to="{ name: 'user-orders' }" class="nav-link text-center">Zamówienia</router-link>
         </div>
+        <div class="col-lg-3 col-12 menu">
+            <router-link :to="{ name: 'user-favorites' }" class="nav-link text-center">Ulubione</router-link>
+        </div>
     </div>
 </template>
 

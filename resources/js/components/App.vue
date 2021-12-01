@@ -14,6 +14,8 @@
 import Navbar from "./layout/NavbarVue";
 import Footer from "./layout/FooterVue";
 
+import { registerServiceWorker, subscribe } from "@/service-worker";
+
 export default {
     components: {
         Navbar,
@@ -22,6 +24,7 @@ export default {
     mounted() {
         const body = document.querySelector("body");
         body.classList.remove("is-loading");
+      //  registerServiceWorker(true).then(subscribe);
     },
 };
 </script>

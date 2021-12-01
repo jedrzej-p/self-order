@@ -17,4 +17,23 @@ class OrderController extends Controller
         return response()->json(Order::where('status', '!=', 1)->with('positions', 'positions.product')->get()->toArray());
     }
 
+    public function getOrdersByStatus($id) {
+        if($id = 5) {
+            return response()->json(Order::where('status', '!=', 1)->with('positions', 'positions.product')->get()->toArray());
+        }
+        else {
+            return response()->json(Order::where('status', '==', $request->status)->with('positions', 'positions.product')->get()->toArray());
+        }
+    }
+
+    public function changeStatus(Request $request, $id) {
+        $order = Order::where('id', $id)->first();
+        $order->status = $request->status;
+        $order->save();
+
+        return response()->json([
+            'message' => 'Status został zmieniony'
+        ]);
+    }
+
 }

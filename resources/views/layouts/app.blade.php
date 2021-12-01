@@ -23,6 +23,12 @@
 
     @include("partials.noscript")
 
+   <!-- <script>
+            window.Laravel = {!! json_encode([
+                'vapidPublicKey' => config('webpush.vapid.public_key'),
+            ]) !!};
+    </script> -->
+
     <script>
         document.querySelector("body").classList.add("is-loading");
     </script>

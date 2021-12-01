@@ -16,6 +16,10 @@ export const quillOptions = {
     formats: ["bold", "italic", "underline", "align", "list", "indent", "link"],
 };
 
+export function getSuccessAlert(response) {
+    alertify.success(response);
+    return {};
+}
 export function getErrorsOrAlert(response) {
     if (response && response.status === 422) {
         return response.data.errors;

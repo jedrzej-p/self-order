@@ -24,7 +24,11 @@ Route::middleware( 'auth:api' )->group( function () {
 
     Route::get('/user/get-logged-user', 'Api\UserController@getLoggedUser');
     Route::get('/user/orders', 'Api\UserController@getOrders');
+    Route::get('/user/favorites', 'Api\UserController@getFavorites');
     Route::post('/email/resend', 'Api\Auth\VerificationController@resend');
+
+  //  Route::post('subscriptions', 'Api\PushSubscriptionController@update');
+    // Route::post('subscriptions/delete', 'Api\PushSubscriptionController@destroy');
 
     Route::get('/categories', 'Api\ProductController@getProducts');
     Route::get('/product/{id}', 'Api\ProductController@getProductDetails');
@@ -39,12 +43,18 @@ Route::middleware( 'auth:api' )->group( function () {
 
     Route::get('/tables', 'Api\TableController@index');
 
+    Route::post('favorite-add-product', 'Api\ProductController@addProductToFavorite');
+    Route::get('favorite/product/{id}', 'Api\ProductController@VerifyProductFavorite');
+    Route::post('favorite-remove-product', 'Api\ProductController@removeProductFromFavorite');
+
     Route::get('/signature', 'Api\OrderController@getSignature');
     Route::get('/notify/{id}', 'Api\OrderController@notify');
 
     Route::middleware( 'is.admin' )->group( function () {
 
         Route::get('/admin/orders', 'Api\Dashboard\OrderController@index');
+        Route::get('/admin/orders/status/{id}', 'Api\Dashboard\OrderController@getOrdersByStatus');
+        Route::post('/admin/orders/change-status/{id}', 'Api\Dashboard\OrderController@changeStatus');
     });
 
 });

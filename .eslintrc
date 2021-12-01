@@ -1,0 +1,96 @@
+{
+    "env": {
+        "es6": true,
+        "browser": true
+    },
+    "parserOptions": {
+        "ecmaVersion": 2020
+    },
+    "extends": ["airbnb-base", "plugin:vue/recommended"],
+    "rules": {
+        // "func-names": "off",
+        // "no-plusplus": "off",
+        // "no-console": "off",
+        "linebreak-style": "off",
+        "indent": [
+            "error",
+            4,
+            {
+                "SwitchCase": 1
+            }
+        ],
+        "quotes": ["error", "double"],
+        "max-len": "off",
+        // "no-continue": "off",
+        // "no-multi-assign": "off",
+        // "no-param-reassign": "off",
+        "import/extensions": [
+            "error",
+            "always",
+            {
+                "js": "never",
+                "vue": "never"
+            }
+        ],
+        "object-curly-newline": ["error", { "multiline": true, "minProperties": 6, "consistent": true }],
+        // "no-new": "off",
+        // "vue/html-closing-bracket-newline": [
+        //     "error",
+        //     {
+        //         "multiline": "always"
+        //     }
+        // ],
+        // "vue/html-closing-bracket-spacing": "error",
+        "vue/html-indent": ["error", 4],
+        "vue/html-self-closing": "off",
+        "vue/max-attributes-per-line": [
+            "error",
+            {
+                "multiline": {
+                    "max": 1
+                },
+                "singleline": 10
+            }
+        ],
+        "vue/order-in-components": [
+            "error",
+            {
+                "order": ["el", "name", "parent", "functional", ["delimiters", "comments"], ["props", "propsData"], ["components", "directives", "filters"], "extends", "mixins", "inheritAttrs", "model", "fetch", "asyncData", "data", "computed", "watch", "methods", "LIFECYCLE_HOOKS", "head", ["template", "render"], "renderError"]
+            }
+        ],
+        // "vue/singleline-html-element-content-newline": [
+        //     "warn",
+        //     {
+        //         "ignores": [
+        //             "pre",
+        //             "textarea",
+        //             "router-link",
+        //             "strong",
+        //             "label",
+        //             "option",
+        //             "a",
+        //             "button",
+        //             "span"
+        //         ]
+        //     }
+        // ],
+        // "vue/no-v-html": "off",
+        // "vue/require-default-prop": "off",
+        "vue/require-prop-types": "off"
+    },
+    "settings": {
+        "import/resolver": {
+            "node": {
+                "extensions": [".js", ".jsx", ".vue"]
+            }
+        },
+        "emitWarning": true
+    },
+    "globals": {
+        "$": false,
+        "axios": false,
+        "moment": false,
+        "Vue": false,
+        "alertify": false
+    }
+}
