@@ -105,7 +105,11 @@ if ("serviceWorker" in navigator) {
     window.addEventListener(
         "load",
         () => {
-            navigator.serviceWorker.register("/sw.js").catch((err) => console.log(err));
+            navigator.serviceWorker.register("/sw.js")
+                .then(function(registration) {
+                    console.log('Registration successful, scope is test:', registration.scope);
+                })
+                .catch((err) => console.log('Error:', err));
         },
         false
     );
