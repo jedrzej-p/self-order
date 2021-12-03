@@ -4,6 +4,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png" />
+
+    <link rel="manifest" href="/manifest.webmanifest">
+
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>Self Order</title>
