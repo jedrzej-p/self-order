@@ -1,2 +1,11 @@
+.env
+bootstrap/cache/*
 node_modules
+public/css
+public/js
+public/mix-manifest.json
+storage/debugbar/*
+storage/logs/*
+storage/framework/sessions/*
+storage/framework/views/*
 vendor
