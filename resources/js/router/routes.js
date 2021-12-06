@@ -11,7 +11,6 @@ import Summary from "../components/cart/Summary";
 import UserOrders from "../components/profile/Orders";
 import UserFavorites from "../components/profile/Favorites";
 
-
 //admin
 import AdminOrders from "../components/admin/orders/Index";
 
@@ -26,17 +25,13 @@ export default [
     { path: '/products', name: 'products', component: Products },
     { path: '/product/:id', name: 'product', component: Product },
 
-   
-
     { path: '/cart', name: 'cart', component: Cart },
     { path: '/summary', name: 'summary', component: Summary },
 
     //user 
-
     { path: '/user/orders', name: 'user-orders', component: UserOrders },
     { path: '/user/favorites', name: 'user-favorites', component: UserFavorites },
 
     //admin
-
     { path: '/admin/orders', name: 'admin-orders', component: AdminOrders },
 ];
