@@ -54,7 +54,7 @@ class ProductController extends Controller
         $favorite->save();
 
         return response()->json([
-            'message' => 'Polubiłeś dany produkt'
+            'message' => 'Dodano produkt do ulubionych'
         ]);
     }
 
@@ -70,7 +70,7 @@ class ProductController extends Controller
         $favorite->delete(); 
 
         return response()->json([
-            'message' => 'Przestałeś lubić dany produkt'
+            'message' => 'Usunięto produkt z ulubionych'
         ]);
     }
 }
