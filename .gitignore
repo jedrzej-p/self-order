@@ -2,6 +2,8 @@
 bootstrap/cache/*
 node_modules
 public/css
+public/images/*
+!public/images/*/
 public/js
 public/mix-manifest.json
 storage/debugbar/*
