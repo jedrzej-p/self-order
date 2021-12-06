@@ -6,6 +6,7 @@ public/images/*
 !public/images/*/
 public/js
 public/mix-manifest.json
+public/offline/css/app.css
 storage/debugbar/*
 storage/logs/*
 storage/framework/sessions/*
