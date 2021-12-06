@@ -14,8 +14,6 @@
                             </select>
                         </div>
                     </div>
-                
-                
                 </form>
             </div>
             <div v-if="products.length==0">
@@ -92,9 +90,7 @@ export default {
                 console.log(err)
             });
         },
-
         searchProducts: function() {
-            
             axios.post('api/search_products', {
                 search: this.search,
                 select_category: this.select_category,
@@ -103,9 +99,7 @@ export default {
                 {
                     if(this.search.length>0 || this.select_category!=0)
                     {
-                       
                         this.products = res.data;
-                        
                     }
                     else
                     {
@@ -116,7 +110,6 @@ export default {
             })
         }
     },
-    
 };
 </script>
 
