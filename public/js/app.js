@@ -4746,6 +4746,61 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -4755,12 +4810,16 @@ __webpack_require__.r(__webpack_exports__);
       quantity: '',
       product_id: '',
       success: {},
-      isAddToFavorite: false
+      isAddToFavorite: false,
+      rating: '5',
+      opinion: '',
+      ratings: []
     };
   },
   mounted: function mounted() {
     this.loadProduct();
     this.CheckIfProductIsAddToFavorite();
+    this.loadRatings();
   },
   computed: {
     isLoggedIn: function isLoggedIn() {
@@ -4821,6 +4880,28 @@ __webpack_require__.r(__webpack_exports__);
         _this5.success = Object(_helpers_helpers__WEBPACK_IMPORTED_MODULE_1__["getSuccessAlert"])(response.data.message);
         window.location.reload();
       });
+    },
+    open_opinion_popup: function open_opinion_popup() {
+      var opinion_popup = document.querySelector('.opinion_popup');
+      opinion_popup.style.display = "block";
+    },
+    close_opinion_popup: function close_opinion_popup() {
+      var opinion_popup = document.querySelector('.opinion_popup');
+      opinion_popup.style.display = "none";
+    },
+    loadRatings: function loadRatings() {
+      var _this6 = this;
+
+      axios.get("/api/product/ratings/" + this.$route.params.id).then(function (res) {
+        if (res.status == 200) {
+          _this6.ratings = res.data; //console.log(res.data)
+        }
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    },
+    send_opinion: function send_opinion() {
+      console.log('id:' + this.$route.params.id + 'rating: ' + this.rating + 'opinion: ' + this.opinion);
     }
   }
 });
@@ -4862,11 +4943,53 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      categories: []
+      categories: [],
+      products: [],
+      search: '',
+      select_category: 0
     };
   },
   mounted: function mounted() {
@@ -4887,6 +5010,22 @@ __webpack_require__.r(__webpack_exports__);
         }
       })["catch"](function (err) {
         console.log(err);
+      });
+    },
+    searchProducts: function searchProducts() {
+      var _this2 = this;
+
+      axios.post('api/search_products', {
+        search: this.search,
+        select_category: this.select_category
+      }).then(function (res) {
+        if (res.status == 200) {
+          if (_this2.search.length > 0 || _this2.select_category != 0) {
+            _this2.products = res.data;
+          } else {
+            _this2.products = []; //console.log('lol')
+          }
+        }
       });
     }
   }
@@ -8618,6 +8757,24 @@ var render = function () {
               ),
             ]),
         _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "col-12 pt-4",
+            staticStyle: { "padding-left": "30px" },
+          },
+          [
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-primary",
+                on: { click: _vm.open_opinion_popup },
+              },
+              [_vm._v("Dodaj opinię")]
+            ),
+          ]
+        ),
+        _vm._v(" "),
         _vm.product.description != null
           ? _c("div", { staticClass: "col-12 col-lg-9 mt-3" }, [
               _c("h3", [_vm._v("Opis")]),
@@ -8628,7 +8785,191 @@ var render = function () {
             ])
           : _vm._e(),
       ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-12" }, [
+        _c("div", { staticClass: "col-12" }, [
+          _c("h2", { staticClass: "text-center" }, [
+            _vm._v(
+              "Opinie o produkcie " +
+                _vm._s(_vm.product.name) +
+                " (" +
+                _vm._s(_vm.ratings.length) +
+                ")"
+            ),
+          ]),
+        ]),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "col-12" },
+          _vm._l(_vm.ratings, function (rating) {
+            return _c("div", { key: rating.id, staticClass: "row" }, [
+              _c("div", { staticClass: "col-2" }, [
+                _c("span", { staticClass: "text-center" }, [
+                  _vm._v(_vm._s(rating.rating)),
+                ]),
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-10" }, [
+                _vm._v(
+                  " \n                        " +
+                    _vm._s(rating.opinion) +
+                    "\n                    "
+                ),
+              ]),
+            ])
+          }),
+          0
+        ),
+      ]),
     ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "opinion_popup",
+        staticStyle: {
+          display: "none",
+          position: "absolute",
+          top: "0px",
+          left: "0px",
+          "background-color": "#E8E8E8",
+          width: "100%",
+          height: "100%",
+        },
+      },
+      [
+        _c("div", { staticClass: "col-12 d-flex justify-content-end p-2" }, [
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-danger py-1 px-2",
+              on: { click: _vm.close_opinion_popup },
+            },
+            [_vm._v("X")]
+          ),
+        ]),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "d-flex justify-content-center",
+            staticStyle: { width: "100%", height: "100%" },
+          },
+          [
+            _c("div", { staticClass: "col-12" }, [
+              _c(
+                "form",
+                {
+                  on: {
+                    submit: function ($event) {
+                      $event.preventDefault()
+                      return _vm.send_opinion.apply(null, arguments)
+                    },
+                  },
+                },
+                [
+                  _c("div", { staticClass: "col-12" }, [
+                    _c("div", { staticClass: "col-12" }, [
+                      _vm._v(
+                        "\n                            Jak oceniasz danie?\n                        "
+                      ),
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-12 py-4" }, [
+                      _c(
+                        "select",
+                        {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.rating,
+                              expression: "rating",
+                            },
+                          ],
+                          staticClass: "form-control",
+                          attrs: { required: "" },
+                          on: {
+                            change: function ($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function (o) {
+                                  return o.selected
+                                })
+                                .map(function (o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.rating = $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            },
+                          },
+                        },
+                        [
+                          _c("option", { domProps: { value: 5 } }, [
+                            _vm._v("5"),
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { domProps: { value: 4 } }, [
+                            _vm._v("4"),
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { domProps: { value: 3 } }, [
+                            _vm._v("3"),
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { domProps: { value: 2 } }, [
+                            _vm._v("2"),
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { domProps: { value: 1 } }, [
+                            _vm._v("1"),
+                          ]),
+                        ]
+                      ),
+                    ]),
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-12" }, [
+                    _c("div", { staticClass: "col-12" }, [
+                      _c("textarea", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.opinion,
+                            expression: "opinion",
+                          },
+                        ],
+                        staticClass: "form-control",
+                        attrs: {
+                          rows: "4",
+                          cols: "10",
+                          placeholder: "Napisz opinię",
+                          required: "",
+                        },
+                        domProps: { value: _vm.opinion },
+                        on: {
+                          input: function ($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.opinion = $event.target.value
+                          },
+                        },
+                      }),
+                    ]),
+                  ]),
+                  _vm._v(" "),
+                  _vm._m(3),
+                ]
+              ),
+            ]),
+          ]
+        ),
+      ]
+    ),
   ])
 }
 var staticRenderFns = [
@@ -8684,11 +9025,31 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "input-group-append" }, [
+    return _c("div", {}, [
       _c(
         "button",
         { staticClass: "btn btn-primary", attrs: { type: "submit" } },
         [_vm._v("Dodaj")]
+      ),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-12 py-4" }, [
+      _c(
+        "div",
+        {
+          staticClass: "col-12",
+          staticStyle: { display: "flex", "justify-content": "center" },
+        },
+        [
+          _c("input", {
+            staticClass: "btn btn-primary",
+            attrs: { type: "submit", value: "Dodaj opinię" },
+          }),
+        ]
       ),
     ])
   },
@@ -8715,79 +9076,261 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("main", { staticClass: "main" }, [
-    _c(
-      "div",
-      { staticClass: "container mt-4" },
-      _vm._l(_vm.categories, function (category) {
-        return _c("div", { key: category.id, staticClass: "category" }, [
-          _c("h3", { staticClass: "mb-3 font-weight-bold text-center" }, [
-            _vm._v(_vm._s(category.name)),
-          ]),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "products" },
-            _vm._l(category.products, function (product) {
-              return _c(
-                "div",
-                { key: product.id, staticClass: "row mb-3" },
-                [
-                  product.product_images.length == 0
-                    ? _c("div", { staticClass: "col-4" }, [
-                        _c("img", {
-                          staticStyle: { width: "120px", height: "120px" },
-                          attrs: { src: "/images/no-photo.png" },
-                        }),
-                      ])
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _vm._l(product.product_images, function (image, index) {
-                    return _c("div", { key: image.id, staticClass: "col-4" }, [
-                      index == 0
-                        ? _c("img", {
-                            staticStyle: { width: "120px", height: "120px" },
-                            attrs: { src: image.url },
+    _c("div", { staticClass: "container mt-4" }, [
+      _c("div", { staticClass: "mb-4" }, [
+        _c("form", [
+          _c("div", { staticClass: "row" }, [
+            _c("div", { staticClass: "col-6" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.search,
+                    expression: "search",
+                  },
+                ],
+                staticClass: "form-control",
+                attrs: { type: "text", placeholder: "Szukaj potraw" },
+                domProps: { value: _vm.search },
+                on: {
+                  keyup: _vm.searchProducts,
+                  input: function ($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.search = $event.target.value
+                  },
+                },
+              }),
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-6" }, [
+              _c(
+                "select",
+                {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.select_category,
+                      expression: "select_category",
+                    },
+                  ],
+                  staticClass: "form-control",
+                  on: {
+                    change: [
+                      function ($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function (o) {
+                            return o.selected
                           })
-                        : _vm._e(),
-                    ])
-                  }),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    { staticClass: "col-8" },
-                    [
-                      _c("h5", { staticClass: "card-title" }, [
-                        _vm._v(_vm._s(product.name)),
-                      ]),
-                      _vm._v(" "),
-                      _c("p", { staticClass: "card-text" }, [
-                        _vm._v(_vm._s(product.price)),
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "router-link",
-                        {
-                          staticClass: "btn btn-primary",
-                          attrs: {
-                            to: { name: "product", params: { id: product.id } },
-                            title: product.name,
-                          },
-                        },
-                        [_vm._v("Szczegóły")]
-                      ),
+                          .map(function (o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.select_category = $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
+                      },
+                      _vm.searchProducts,
                     ],
-                    1
-                  ),
+                  },
+                },
+                [
+                  _c("option", { domProps: { value: 0 } }, [
+                    _vm._v("Wszystkie kategorie"),
+                  ]),
+                  _vm._v(" "),
+                  _vm._l(_vm.categories, function (category) {
+                    return _c(
+                      "option",
+                      { key: category.id, domProps: { value: category.id } },
+                      [_vm._v(_vm._s(category.name))]
+                    )
+                  }),
                 ],
                 2
-              )
+              ),
+            ]),
+          ]),
+        ]),
+      ]),
+      _vm._v(" "),
+      _vm.products.length == 0
+        ? _c(
+            "div",
+            _vm._l(_vm.categories, function (category) {
+              return _c("div", { key: category.id, staticClass: "category" }, [
+                _c("h3", { staticClass: "mb-3 font-weight-bold text-center" }, [
+                  _vm._v(_vm._s(category.name)),
+                ]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "products" },
+                  _vm._l(category.products, function (product) {
+                    return _c(
+                      "div",
+                      { key: product.id, staticClass: "row mb-3" },
+                      [
+                        product.product_images.length == 0
+                          ? _c("div", { staticClass: "col-4" }, [
+                              _c("img", {
+                                staticStyle: {
+                                  width: "120px",
+                                  height: "120px",
+                                },
+                                attrs: { src: "/images/no-photo.png" },
+                              }),
+                            ])
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _vm._l(product.product_images, function (image, index) {
+                          return _c(
+                            "div",
+                            { key: image.id, staticClass: "col-4" },
+                            [
+                              index == 0
+                                ? _c("img", {
+                                    staticStyle: {
+                                      width: "120px",
+                                      height: "120px",
+                                    },
+                                    attrs: { src: image.url },
+                                  })
+                                : _vm._e(),
+                            ]
+                          )
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticClass: "col-8" },
+                          [
+                            _c("h5", { staticClass: "card-title" }, [
+                              _vm._v(_vm._s(product.name)),
+                            ]),
+                            _vm._v(" "),
+                            _c("p", { staticClass: "card-text" }, [
+                              _vm._v(_vm._s(product.price)),
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "router-link",
+                              {
+                                staticClass: "btn btn-primary",
+                                attrs: {
+                                  to: {
+                                    name: "product",
+                                    params: { id: product.id },
+                                  },
+                                  title: product.name,
+                                },
+                              },
+                              [_vm._v("Szczegóły")]
+                            ),
+                          ],
+                          1
+                        ),
+                      ],
+                      2
+                    )
+                  }),
+                  0
+                ),
+              ])
             }),
             0
-          ),
-        ])
-      }),
-      0
-    ),
+          )
+        : _c("div", [
+            _c("div", [
+              _c(
+                "div",
+                { staticClass: "products" },
+                [
+                  _c("h2", { staticClass: "text-center" }, [
+                    _vm._v(
+                      "Lista potraw, które spełaniają kryteria wyszukiwania (" +
+                        _vm._s(_vm.products.length) +
+                        ")"
+                    ),
+                  ]),
+                  _vm._v(" "),
+                  _vm._l(_vm.products, function (product) {
+                    return _c(
+                      "div",
+                      { key: product.id, staticClass: "row mb-3" },
+                      [
+                        product.product_images.length == 0
+                          ? _c("div", { staticClass: "col-4" }, [
+                              _c("img", {
+                                staticStyle: {
+                                  width: "120px",
+                                  height: "120px",
+                                },
+                                attrs: { src: "/images/no-photo.png" },
+                              }),
+                            ])
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _vm._l(product.product_images, function (image, index) {
+                          return _c(
+                            "div",
+                            { key: image.id, staticClass: "col-4" },
+                            [
+                              index == 0
+                                ? _c("img", {
+                                    staticStyle: {
+                                      width: "120px",
+                                      height: "120px",
+                                    },
+                                    attrs: { src: image.url },
+                                  })
+                                : _vm._e(),
+                            ]
+                          )
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticClass: "col-8" },
+                          [
+                            _c("h5", { staticClass: "card-title" }, [
+                              _vm._v(_vm._s(product.name)),
+                            ]),
+                            _vm._v(" "),
+                            _c("p", { staticClass: "card-text" }, [
+                              _vm._v(_vm._s(product.price)),
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "router-link",
+                              {
+                                staticClass: "btn btn-primary",
+                                attrs: {
+                                  to: {
+                                    name: "product",
+                                    params: { id: product.id },
+                                  },
+                                  title: product.name,
+                                },
+                              },
+                              [_vm._v("Szczegóły")]
+                            ),
+                          ],
+                          1
+                        ),
+                      ],
+                      2
+                    )
+                  }),
+                ],
+                2
+              ),
+            ]),
+          ]),
+    ]),
   ])
 }
 var staticRenderFns = []
