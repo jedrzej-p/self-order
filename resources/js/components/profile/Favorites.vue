@@ -2,20 +2,21 @@
     <div class="container mb-3">
         <Menu />
         <div class="card-body table-responsive p-0">
-            <table class="table">
-                <thead class="thead-light">
-                    <tr>
-                        <th>ID</th>
-                        <th>Nazwa</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="favorite in favorites" :key="favorite.id">
-                        <td>{{ favorite.id }}</td>
-                        <td>{{ favorite.name }}</td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="products">
+                <div class="row mb-3" v-for="favorite in favorites" :key="favorite.id">
+                    <div class="col-4" v-if="favorite.product_images.length == 0">
+                        <img src="/images/no-photo.png" style="width: 120px; height: 120px;" />
+                    </div>
+                    <div class="col-4" v-for="(image, index) in favorite.product_images" :key="image.id">
+                        <img v-if="index == 0" v-bind:src="image.url" style="width: 120px; height: 120px;" />
+                    </div>
+                    <div class="col-8">
+                        <h5 class="card-title">{{favorite.name}}</h5>
+                        <p class="card-text">{{favorite.price}}</p>
+                        <router-link :to="{name: 'product', params: { id: favorite.id }}" :title="favorite.name" class="btn btn-primary">Szczegóły</router-link>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </template>
