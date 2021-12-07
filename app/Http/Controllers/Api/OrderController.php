@@ -28,7 +28,7 @@ class OrderController extends Controller
                 $order = new Order;
                 $order->user_id = Auth::user() ? Auth::user()->id : NULL;
                 $order->date = $now;
-                $order->status = 1;
+                $order->status = 0;
                 $order->value = 0;
                 $order->save();
                 $orderId = $order->id;
@@ -42,7 +42,7 @@ class OrderController extends Controller
                     $order = new Order;
                     $order->user_id = Auth::user()->id ? Auth::user()->id : NULL;
                     $order->date = $now;
-                    $order->status = 1;
+                    $order->status = 0;
                     $order->value = 0;
                     $order->save();
                     $orderId = $order->id;
@@ -109,12 +109,12 @@ class OrderController extends Controller
             $order = Order::where('id', session('order_id'))->first();
             $order->nr = $order->setNewOrderNumber();
             $order->value = $order->value;
-            $order->status = 2;
+            $order->status = 1;
             $order->save();
             session()->forget('order_id');
 
 
-         /*   $basic  = new \Nexmo\Client\Credentials\Basic('69711184', 'FzMzsOI7PrcpJAX0');
+            $basic  = new \Nexmo\Client\Credentials\Basic('69711184', 'FzMzsOI7PrcpJAX0');
             $client = new \Nexmo\Client($basic);
 
             //wysyłanie SMS
@@ -122,12 +122,12 @@ class OrderController extends Controller
                 'to' => '48505294967',
                 'from' => 'Restauracja SelfOrder',
                 'text' => 'Dziekujemy za zlozenie zamowienia.'
-            ]); */
+            ]);
 
-            /* try {
+            try {
                 Mail::to($order->email)->send(new OrderShipped($order));
             } catch (Exception $e) {
-            } */
+            } 
 
         });
 

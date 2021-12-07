@@ -48,25 +48,28 @@
             <div class="col-12 text-right">
                 <p><b>Suma:</b> {{cart.value}}</p>
             </div>
-          <!--  <form method="POST" action="https://merch-prod.snd.payu.com/api/v2_1/orders">
+            <form method="POST" action="https://merch-prod.snd.payu.com/api/v2_1/orders">
                 <input type="hidden" name="customerIp" value="123.123.123.123"> 
                 <input type="hidden" name="merchantPosId" value="425910"> 
                 <input type="hidden" name="description" value="Opis zamówienia"> 
-                <input type="hidden" name="totalAmount" value="1000"> 
+                <input type="hidden" name="totalAmount" :value="cart.value * 100"> 
                 <input type="hidden" name="currencyCode" value="PLN"> 
                 <input type="hidden" name="products[0].name" value="Produkt 1"> 
                 <input type="hidden" name="products[0].unitPrice" value="1000"> 
                 <input type="hidden" name="products[0].quantity" value="1">
-                <input type="hidden" name="notifyUrl" :value="'http://sklepwms.erpit.pl/notify/' + cart.id">
-                <input type="hidden" name="continueUrl" value="https://selforder.example/summary">
+                <input type="hidden" name="notifyUrl" :value="'https://dariusz-ptaszynski.pl/notify/' + cart.id">
+                <input type="hidden" name="continueUrl" value="https://dariusz-ptaszynski.pl/summary">
                 <input type="hidden" name="OpenPayu-Signature" :value="signature">
-                <button type="submit">Płacę z PayU</button>
-            </form> -->
-            <div class="col-12 text-right">
+                <div class="text-center">
+                    <p>Zapłać przez:</p>
+                    <button type="submit" class="payu-btn d-flex justify-content-center"></button>
+                </div>
+            </form>
+            <!-- <div class="col-12 text-right">
                 <form class="mx-0 pt-0 mb-3" @submit.prevent="storeCarts">
                     <button type="submit" class="btn btn-primary">Złóż zamówienie</button>
                 </form>
-            </div>
+            </div> -->
         </div>
         </div>
     </main>
@@ -172,4 +175,14 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.payu-btn {
+    border: none;
+    background: url('https://poland.payu.com/wp-content/uploads/sites/14/2020/05/PAYU_LOGO_LIME-990x640.png') no-repeat;
+    background-size: contain;
+    display: block;
+    width: 350px;
+    height: 100px;
+    margin: 0 auto;
+}
+</style>

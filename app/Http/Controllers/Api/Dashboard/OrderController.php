@@ -14,15 +14,15 @@ class OrderController extends Controller
 {
 
     public function index() {
-        return response()->json(Order::where('status', '!=', 1)->with('positions', 'positions.product')->get()->toArray());
+        return response()->json(Order::where('status', '!=', 0)->with('positions', 'positions.product', 'positions.product.product_images')->get()->toArray());
     }
 
     public function getOrdersByStatus($id) {
         if($id = 5) {
-            return response()->json(Order::where('status', '!=', 1)->with('positions', 'positions.product')->get()->toArray());
+            return response()->json(Order::where('status', '!=', 0)->with('positions', 'positions.product', 'positions.product.product_images')->get()->toArray());
         }
         else {
-            return response()->json(Order::where('status', '==', $request->status)->with('positions', 'positions.product')->get()->toArray());
+            return response()->json(Order::where('status', '==', $request->status)->with('positions', 'positions.product', 'positions.product.product_images')->get()->toArray());
         }
     }
 
