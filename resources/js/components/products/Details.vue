@@ -31,7 +31,7 @@
                         <span v-if="success" class="invalid-feedback" role="alert">
                             <strong>{{ success }}</strong>
                         </span>
-                        <div class="input-group-append">
+                        <div class="">
                             <button type="submit" class="btn btn-primary">Dodaj</button>
                         </div>
                     </div>
@@ -42,9 +42,64 @@
                 <div class="col-12" v-else>
                     <form class="col-12 col-lg-12" @submit.prevent="removeProductFromFavorite"><button type="submit" class="btn btn-primary">Usuń z ulubionych</button></form>
                 </div>
+                <div class="col-12 pt-4" style="padding-left: 30px;"> 
+                    <button class="btn btn-primary" @click="open_opinion_popup">Dodaj opinię</button>
+                </div>
                 <div v-if="product.description != null" class="col-12 col-lg-9 mt-3">
                     <h3>Opis</h3>
                     <p v-html="product.description"></p>
+                </div>
+            </div>
+
+            <div class="col-12"> 
+                <div class="col-12">
+                    <h2 class="text-center">Opinie o produkcie {{product.name}} ({{ratings.length}})</h2>
+                </div>
+                <div class="col-12">
+                    <div class="row" v-for="rating in ratings" :key="rating.id">
+                        <div class="col-2">
+                            <span class="text-center">{{rating.rating}}</span>
+                        </div> 
+                        <div class="col-10"> 
+                            {{rating.opinion}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="opinion_popup" style="display: none; position: absolute; top: 0px; left: 0px; background-color: #E8E8E8; width:100%; height: 100%;">
+            <div class="col-12 d-flex justify-content-end p-2"> 
+                <button class="btn btn-danger py-1 px-2" @click="close_opinion_popup">X</button>
+            </div>
+            <div class="d-flex justify-content-center" style="width: 100%; height: 100%;"> 
+                <div class="col-12">
+                    <form @submit.prevent="send_opinion">
+                        <div class="col-12">
+                            <div class="col-12">
+                                Jak oceniasz danie?
+                            </div>
+                            <div class="col-12 py-4">
+                                <select class="form-control" v-model="rating" required>
+                                    <option v-bind:value="5">5</option>
+                                    <option v-bind:value="4">4</option>
+                                    <option v-bind:value="3">3</option>
+                                    <option v-bind:value="2">2</option>
+                                    <option v-bind:value="1">1</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-12"> 
+                            <div class="col-12"> 
+                                <textarea class="form-control" rows="4" cols="10" placeholder="Napisz opinię" v-model="opinion" required></textarea>
+                            </div>
+                        </div>
+                        <div class="col-12 py-4">
+                            <div class="col-12" style="display: flex; justify-content: center;"> 
+                                <input type="submit" class="btn btn-primary" value="Dodaj opinię">
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -63,11 +118,15 @@ export default {
             product_id: '',
             success: {},
             isAddToFavorite: false,
+            rating: '5',
+            opinion: '',
+            ratings: [],
         };
     },
     mounted(){
         this.loadProduct();
         this.CheckIfProductIsAddToFavorite();
+        this.loadRatings();
     },
     computed: {
         isLoggedIn() {
@@ -114,6 +173,36 @@ export default {
                 window.location.reload();
             })
         },
+
+        open_opinion_popup: function()
+        {
+            let opinion_popup = document.querySelector('.opinion_popup');
+
+            opinion_popup.style.display = "block";
+        },
+
+        close_opinion_popup: function()
+        {
+            let opinion_popup = document.querySelector('.opinion_popup');
+
+            opinion_popup.style.display = "none";
+        },
+
+        loadRatings: function() {
+        axios.get("/api/product/ratings/" + this.$route.params.id).then(res => {
+            if (res.status == 200) {
+                this.ratings = res.data;
+                //console.log(res.data)
+            }
+            }).catch(err => {
+                console.log(err);
+            });
+        },
+
+        send_opinion: function()
+        {
+            console.log('id:'+this.$route.params.id+'rating: '+this.rating+'opinion: '+this.opinion)
+        }
     }
 };
 </script>

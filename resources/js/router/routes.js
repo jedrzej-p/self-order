@@ -29,11 +29,9 @@ export default [
     { path: '/summary', name: 'summary', component: Summary },
 
     //user 
-
     { path: '/user/orders', name: 'user-orders', component: UserOrders },
     { path: '/user/favorites', name: 'user-favorites', component: UserFavorites },
 
     //admin
-
     { path: '/admin/orders', name: 'admin-orders', component: AdminOrders },
 ];
