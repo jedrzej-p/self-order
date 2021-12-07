@@ -109,7 +109,7 @@ footer {
 }
 
 #cover {
-    background: url('../images/tlo.jpg') center center no-repeat;
+    background: url('../img/background_spicy.jpg') center center no-repeat;
     background-size: cover;
     height: 100%;
     text-align: center;
@@ -128,3 +128,13 @@ footer {
 
 }
 
+.navbar {
+    @media (max-width: 991px) {
+        background-color: #e6e6e6 !important;
+    }
+    .navbar-collapse {
+        @media (max-width: 991px) {
+            background-color: #f2f2f2;
+        }
+    }
+}
