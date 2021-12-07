@@ -128,3 +128,13 @@ footer {
 
 }
 
+.navbar {
+    @media (max-width: 991px) {
+        background-color: #e6e6e6 !important;
+    }
+    .navbar-collapse {
+        @media (max-width: 991px) {
+            background-color: #f2f2f2;
+        }
+    }
+}
