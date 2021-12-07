@@ -1,11 +1,14 @@
 <template>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">SelfOrder</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light p-0 p-lg-3">
+        <a class="navbar-brand p-0 m-1" href="#">
+            <img src="/logo.png" width="50" height="50" alt="">
+        </a>
+        <!-- Przycisk hamburgera -->
+        <button class="navbar-toggler mr-2" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <!-- Navbar/Rozwijane menu -->
+        <div class="collapse navbar-collapse px-3 px-lg-0" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <template v-if="!isLoggedIn">
                     <li class="nav-item">

@@ -1,2 +1,14 @@
+.env
+bootstrap/cache/*
 node_modules
+public/css
+public/images/*
+!public/images/*/
+public/js
+public/mix-manifest.json
+public/offline/css/app.css
+storage/debugbar/*
+storage/logs/*
+storage/framework/sessions/*
+storage/framework/views/*
 vendor
