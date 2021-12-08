@@ -21,6 +21,10 @@
                             <option value="3" :selected="3 == order.status">Zrealizowany</option>
                         </select>
                     </div>
+                    <div class="col-12">
+                        <h4 style="color: green" v-if="order.is_paid == 1">Opłacone</h4>
+                        <h4 style="color: red" v-else>Nieopłacone</h4>
+                    </div>
                     <div style="display: flex" class="mt-2" v-for="position in order.positions" :key="position.id"> 
                         <div class="col-6" v-if="position.product.product_images.length == 0">
                             <img src="/images/no-photo.png" style="width: 120px; height: 120px;" />
