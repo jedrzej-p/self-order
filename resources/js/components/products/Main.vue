@@ -39,7 +39,7 @@
             <div v-else> 
                 <div> 
                      <div class="products">
-                         <h2 class="text-center">Lista potraw, które spełaniają kryteria wyszukiwania ({{products.length}})</h2>
+                         <h2 class="text-center">Lista potraw, które spełniają kryteria wyszukiwania ({{products.length}})</h2>
                         <div class="row mb-3" v-for="product in products" :key="product.id">
                             <div class="col-4" v-if="product.product_images.length == 0">
                                 <img src="/images/no-photo.png" style="width: 120px; height: 120px;" />

@@ -57,7 +57,7 @@
                 <input type="hidden" name="products[0].name" value="Produkt 1"> 
                 <input type="hidden" name="products[0].unitPrice" value="1000"> 
                 <input type="hidden" name="products[0].quantity" value="1">
-                <input type="hidden" name="notifyUrl" :value="'https://dariusz-ptaszynski.pl/notify/' + cart.id">
+                <input type="hidden" name="notifyUrl" :value="'https://dariusz-ptaszynski.pl/api/notify/' + cart.id">
                 <input type="hidden" name="continueUrl" value="https://dariusz-ptaszynski.pl/summary">
                 <input type="hidden" name="OpenPayu-Signature" :value="signature">
                 <div class="text-center">

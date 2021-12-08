@@ -27,7 +27,7 @@ class Tools extends Model
  $content .= "customerIp=" . urlencode("123.123.123.123") . "&";
  $content .= "description=" . urlencode("Opis zamówienia") . "&";
  $content .= "merchantPosId=" . urlencode("425910") . "&";
- $content .= "notifyUrl=" . urlencode("https://dariusz-ptaszynski.pl/notify/" . $order->id) . "&";
+ $content .= "notifyUrl=" . urlencode("https://dariusz-ptaszynski.pl/api/notify/" . $order->id) . "&";
 	$content .= "products[0].name=" . urlencode("Produkt 1") . "&";
 $content .= "products[0].quantity=" . urlencode(1) . "&";
 $content .= "products[0].unitPrice=" . urlencode(1000) . "&";

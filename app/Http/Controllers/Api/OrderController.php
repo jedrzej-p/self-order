@@ -145,7 +145,7 @@ class OrderController extends Controller
     }
 
     public function notify(Request $request, $id) {
-
+        
             //pamietać o dodaniu w pliku VerifyCsrfToken
         $requestData = file_get_contents("php://input");
         $json = json_decode($requestData, true);

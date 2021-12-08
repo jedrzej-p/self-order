@@ -34,7 +34,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <router-link v-if="loggedUser.is_admin" :to="{ name: 'admin-orders' }" class="nav-link">Panel administratora</router-link>
+                        <router-link v-if="loggedUser.is_admin == 1" :to="{ name: 'admin-orders' }" class="nav-link">Panel administratora</router-link>
                     </li>
                 </template>
             </ul>

@@ -28,8 +28,8 @@ class Order extends Model
     public function setNewOrderNumber() {
         $maxNumber = static::max('nr');
         $firstPartInt = (int)explode('-', $maxNumber)[0];
-        $increment = sprintf('%04d', $firstPartInt + 1);
+        $increment = sprintf('%04d/', $firstPartInt + 1);
 
-        return $increment . date_format(new DateTime(date('Y-m-d')), 'my');
+        return $increment . date_format(new DateTime(date('Y-m-d')), 'm/y');
     }
 }

@@ -14,7 +14,7 @@ class OrderController extends Controller
 {
 
     public function index() {
-        return response()->json(Order::where('status', '!=', 0)->with('positions', 'positions.product', 'positions.product.product_images')->get()->toArray());
+        return response()->json(Order::where('status', '!=', 0)->with('positions', 'positions.product', 'positions.product.product_images')->orderBy('id', 'desc')->get()->toArray());
     }
 
     public function getOrdersByStatus($id) {

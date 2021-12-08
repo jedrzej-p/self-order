@@ -20,6 +20,8 @@ Route::post('/password/reset', 'Api\Auth\ResetPasswordController@reset');
 
 Route::get('/email/verify/{id}/{hash}/{email}', 'Api\Auth\VerificationController@verify');
 
+Route::post('/notify/{id}', 'Api\OrderController@notify');
+
 Route::middleware( 'auth:api' )->group( function () {
 
     Route::get('/user/get-logged-user', 'Api\UserController@getLoggedUser');
@@ -50,7 +52,6 @@ Route::middleware( 'auth:api' )->group( function () {
     Route::post('favorite-remove-product', 'Api\ProductController@removeProductFromFavorite');
 
     Route::get('/signature', 'Api\OrderController@getSignature');
-    Route::get('/notify/{id}', 'Api\OrderController@notify');
 
     Route::middleware( 'is.admin' )->group( function () {
 
