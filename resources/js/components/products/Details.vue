@@ -186,7 +186,6 @@ export default {
                 window.location.reload();
             })
         },
-
         open_opinion_popup: function()
         {
             let opinion_popup = document.querySelector('.opinion_popup');
@@ -196,58 +195,52 @@ export default {
             let body = document.querySelector('body');
             body.style.overflow = "hidden"; 
         },
-
         close_opinion_popup: function()
         {
             let opinion_popup = document.querySelector('.opinion_popup');
 
             opinion_popup.style.display = "none";
             let body = document.querySelector('body');
-            body.style.overflow = "scroll";
+            body.style.overflow = "auto";
         },
-
         loadRatings: function() {
         axios.get("/api/product/ratings/" + this.$route.params.id).then(res => {
             if (res.status == 200) {
                 this.ratings = res.data;
                 
-              let list=[];
+                let list=[];
 
-            if(this.ratings.length>0)
-            {
-                this.ratings.forEach(e=>{
-                    list.push(e.rating);
-                    this.sum = list.reduce((a, b) => a + b, 0); 
-                })
-                // console.log(this.sum)
-
-                this.avg = parseInt(this.sum)/this.ratings.length;
-                this.avg_round = this.avg.toFixed(2);
-                //console.log(this.avg.toFixed(2))
-            }
-            else
-            {
-                this.avg_round = ""
-            }
+                if(this.ratings.length>0)
+                {
+                    this.ratings.forEach(e=>{
+                        list.push(e.rating);
+                        this.sum = list.reduce((a, b) => a + b, 0); 
+                    })
+                    this.avg = parseInt(this.sum)/this.ratings.length;
+                    this.avg_round = this.avg.toFixed(2);
+                }
+                else
+                {
+                    this.avg_round = ""
+                }
 
             }
             }).catch(err => {
                 console.log(err);
             });
         },
-
         send_opinion: function()
         {
             axios.post('/api/save_rating', {
                 product_id: this.$route.params.id,
                 rating: this.rating,
                 opinion: this.opinion,
-                }).then(res=>{
-                    if(res.status==200)
-                    {
-                       window.location.reload();
-                    }
-                })
+            }).then(res=>{
+                if(res.status==200)
+                {
+                   window.location.reload();
+                }
+            })
         }
     }
 };
