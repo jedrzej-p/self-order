@@ -1,6 +1,7 @@
 <template>
     <main class="main">
-        <div class="container mt-4">
+        <div v-if="isModalOpened == false" class="container mt-4">
+            <!-- Karuzela ze zdjęciami -->
             <div v-if="product.product_images.length > 0" id="carouselExampleControls" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner">
                     <div v-for="(image, index) in product.product_images" :key="image.id">
@@ -77,8 +78,8 @@
                 </div>
             </div>
         </div>
-
-        <div class="opinion_popup" style="display: none; position: absolute; top: 0px; left: 0px; background-color: #E8E8E8; width:100%; height: 100%;">
+        <!-- Modal z dodaniem opinii -->
+        <div v-else class="opinion_popup" style="position: fixed; top: 0px; left: 0px; background-color: #E8E8E8; width:100%; height: 100%;">
             <div class="col-12 d-flex justify-content-end p-2"> 
                 <button class="btn btn-danger py-1 px-2" @click="close_opinion_popup">X</button>
             </div>
@@ -128,6 +129,7 @@ export default {
             product_id: '',
             success: {},
             isAddToFavorite: false,
+            isModalOpened: false,
             rating: '5',
             opinion: '',
             ratings: [],
@@ -188,43 +190,31 @@ export default {
         },
         open_opinion_popup: function()
         {
-            let opinion_popup = document.querySelector('.opinion_popup');
-
-            opinion_popup.style.display = "block";
-            
-            let body = document.querySelector('body');
-            body.style.overflow = "hidden"; 
+            this.isModalOpened = true; //Modal zostanie otwarty, strona schowana
         },
         close_opinion_popup: function()
         {
-            let opinion_popup = document.querySelector('.opinion_popup');
-
-            opinion_popup.style.display = "none";
-            let body = document.querySelector('body');
-            body.style.overflow = "auto";
+            this.isModalOpened = false; //Modal zostanie schowany, strona otwarta
         },
         loadRatings: function() {
-        axios.get("/api/product/ratings/" + this.$route.params.id).then(res => {
-            if (res.status == 200) {
-                this.ratings = res.data;
-                
-                let list=[];
+            axios.get("/api/product/ratings/" + this.$route.params.id).then(res => {
+                if (res.status == 200) {
+                    this.ratings = res.data;
+                    
+                    let list=[];
 
-                if(this.ratings.length>0)
-                {
-                    this.ratings.forEach(e=>{
-                        list.push(e.rating);
-                        this.sum = list.reduce((a, b) => a + b, 0); 
-                    })
-                    this.avg = parseInt(this.sum)/this.ratings.length;
-                    this.avg_round = this.avg.toFixed(2);
+                    if(this.ratings.length>0)
+                    {
+                        this.ratings.forEach(e=>{
+                            list.push(e.rating);
+                            this.sum = list.reduce((a, b) => a + b, 0); 
+                        })
+                        this.avg = parseInt(this.sum)/this.ratings.length;
+                        this.avg_round = this.avg.toFixed(2);
+                    } else {
+                        this.avg_round = ""
+                    }
                 }
-                else
-                {
-                    this.avg_round = ""
-                }
-
-            }
             }).catch(err => {
                 console.log(err);
             });
