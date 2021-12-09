@@ -21,7 +21,7 @@
     <meta name="theme-color" content="#CD1B6F"/>
 </head>
 <body>
-    <div class="app-loader">
+    <div class="app-loader" style="height: 100%; width: 100%; background-color: rgb(255, 252, 249)">
         <img src="/images/static/loader.gif" />
     </div>
 
