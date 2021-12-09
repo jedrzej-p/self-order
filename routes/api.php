@@ -36,6 +36,7 @@ Route::middleware( 'auth:api' )->group( function () {
     Route::get('/product/{id}', 'Api\ProductController@getProductDetails');
     Route::post('/search_products', 'Api\ProductController@search_products');
     Route::get('/product/ratings/{id}', 'Api\ProductController@ratings');
+    Route::post('/save_rating', 'Api\ProductController@save_rating');
 
     Route::post('/add-to-cart', 'Api\OrderController@addToCart');
     Route::post('/store-cart', 'Api\OrderController@storeCart');

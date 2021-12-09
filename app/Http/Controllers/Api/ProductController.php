@@ -27,6 +27,22 @@ class ProductController extends Controller
         return response()->json(Rating::where('product_id', '=', $id)->get());
     }
 
+    public function save_rating(Request $request)
+    {
+        $product_id = $request->product_id;
+        $rating = $request->rating;
+        $opinion = $request->opinion;
+
+        $new_rating = new Rating;
+        $new_rating->product_id = $product_id;
+        $new_rating->rating = $rating;
+        $new_rating->opinion = $opinion;
+
+        $new_rating->save();
+
+        
+    }
+
     public function search_products(Request $request)
     {
         $search = $request->search;

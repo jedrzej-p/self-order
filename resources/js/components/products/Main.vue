@@ -2,10 +2,10 @@
     <main class="main">
         <div class="container mt-4">
             <div class="mb-4"> 
-                <form>
+                <!-- <form> -->
                     <div class="row">
                         <div class="col-6">
-                            <input class="form-control" type="text" v-model="search" placeholder="Szukaj potraw" @keyup="searchProducts">
+                            <input class="form-control" type="text" v-model="search" placeholder="Szukaj potraw" autocomplete="off" @keyup="searchProducts">
                         </div>
                         <div class="col-6">
                             <select class="form-control" v-model="select_category" @change="searchProducts">
@@ -14,7 +14,7 @@
                             </select>
                         </div>
                     </div>
-                </form>
+                <!-- </form> -->
             </div>
             <div v-if="products.length==0">
                 <div class="category" v-for="category in categories" :key="category.id">
