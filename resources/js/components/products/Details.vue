@@ -51,10 +51,10 @@
                     <p v-html="product.description"></p>
                 </div>
             </div>
-
-            <div class="col-12"> 
+            <!-- Opinie o daniu -->
+            <div class="row"> 
                 <div class="col-12">
-                    <h2 class="text-center">Opinie o produkcie {{product.name}} ({{ratings.length}}) {{avg_round}} </h2>
+                    <h2 class="text-left">Opinie ({{ratings.length}}) {{avg_round}}/5 </h2>
                 </div>
                 <div class="col-12 bg-light p-2">
                     <div class="row">
@@ -203,7 +203,7 @@ export default {
                     
                     let list=[];
 
-                    if(this.ratings.length>0)
+                    if(this.ratings.length > 0)
                     {
                         this.ratings.forEach(e=>{
                             list.push(e.rating);
