@@ -39,8 +39,6 @@ class ProductController extends Controller
         $new_rating->opinion = $opinion;
 
         $new_rating->save();
-
-        
     }
 
     public function search_products(Request $request)
