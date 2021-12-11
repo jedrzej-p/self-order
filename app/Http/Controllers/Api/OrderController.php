@@ -114,7 +114,7 @@ class OrderController extends Controller
             session()->forget('order_id');
 
 
-            $basic  = new \Nexmo\Client\Credentials\Basic('69711184', 'FzMzsOI7PrcpJAX0');
+         /*   $basic  = new \Nexmo\Client\Credentials\Basic('69711184', 'FzMzsOI7PrcpJAX0');
             $client = new \Nexmo\Client($basic);
 
             //wysyłanie SMS
@@ -127,7 +127,7 @@ class OrderController extends Controller
             try {
                 Mail::to($order->email)->send(new OrderShipped($order));
             } catch (Exception $e) {
-            } 
+            }  */
 
         });
 

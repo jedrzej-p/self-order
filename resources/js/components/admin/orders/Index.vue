@@ -34,8 +34,7 @@
                         </div>
                         <div class="col-6">
                             <h5 class="card-title">{{position.product.name}}</h5>
-                            <p class="card-text">{{position.product.price}}</p>
-                            <router-link :to="{name: 'product', params: { id: position.product.id }}" :title="position.product.name" class="btn btn-primary">Szczegóły</router-link>
+                            <p class="card-text">Ilość: {{position.quantity}}</p>
                         </div>
                     </div>
                     <hr>
