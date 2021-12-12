@@ -28,22 +28,22 @@
                 </div>
                 <form class="col-12 col-lg-3" @submit.prevent="addToCart">
                     <div class="input-group mb-3">
-                        <input id="quantity" type="number" class="form-control" name="quantity" v-model="quantity" min="1" step="1" required>
-                        <span v-if="success" class="invalid-feedback" role="alert">
-                            <strong>{{ success }}</strong>
-                        </span>
-                        <div class="">
-                            <button type="submit" class="btn btn-primary">Dodaj</button>
+                        <input id="quantity" type="number" class="form-control" placeholder="Wybierz ilość" aria-label="Wybór ilości" aria-describedby="basic-addon2" name="quantity" v-model="quantity" min="1" step="1" required>
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-primary" type="submit">Dodaj</button>
                         </div>
                     </div>
+                    <span v-if="success" class="invalid-feedback" role="alert">
+                        <strong>{{ success }}</strong>
+                    </span>
                 </form>
                 <div class="col-12" v-if="isAddToFavorite == false">
-                    <form class="col-12 col-lg-12" @submit.prevent="addProductToFavorite"><button type="submit" class="btn btn-primary">Dodaj do ulubionych</button></form>
+                    <form class="col-12 px-0" @submit.prevent="addProductToFavorite"><button type="submit" class="btn btn-primary">Dodaj do ulubionych</button></form>
                 </div>
                 <div class="col-12" v-else>
-                    <form class="col-12 col-lg-12" @submit.prevent="removeProductFromFavorite"><button type="submit" class="btn btn-primary">Usuń z ulubionych</button></form>
+                    <form class="col-12 px-0" @submit.prevent="removeProductFromFavorite"><button type="submit" class="btn btn-primary">Usuń z ulubionych</button></form>
                 </div>
-                <div class="col-12 pt-4" style="padding-left: 30px;"> 
+                <div class="col-12 pt-3"> 
                     <button class="btn btn-primary" @click="open_opinion_popup">Dodaj opinię</button>
                 </div>
                 <div v-if="product.description != null" class="col-12 col-lg-9 mt-3">
@@ -86,7 +86,7 @@
             <div class="d-flex justify-content-center" style="width: 100%; height: 100%;"> 
                 <div class="col-12">
                     <form @submit.prevent="send_opinion">
-                        <div class="col-12">
+                        <div class="col-12 px-0">
                             <div class="col-12">
                                 Jak oceniasz danie?
                             </div>
@@ -100,12 +100,12 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-12"> 
+                        <div class="col-12 px-0"> 
                             <div class="col-12"> 
                                 <textarea class="form-control" rows="4" cols="10" placeholder="Napisz opinię" v-model="opinion" required></textarea>
                             </div>
                         </div>
-                        <div class="col-12 py-4">
+                        <div class="col-12 px-0 mt-3">
                             <div class="col-12" style="display: flex; justify-content: center;"> 
                                 <input type="submit" class="btn btn-primary" value="Dodaj opinię">
                             </div>

@@ -1,6 +1,6 @@
 <template>
     <main class="main">
-        <div class="container mt-4">
+        <div class="container p-3" style="background-color: rgb(245, 245, 245)">
             <div class="mb-4"> 
                 <!-- <form> -->
                     <div class="row">
@@ -20,15 +20,15 @@
                 <div class="category" v-for="category in categories" :key="category.id">
                     <h3 class="mb-3 font-weight-bold text-center">{{category.name}}</h3>
                     <div class="products">
-                        <div class="row mb-3" v-for="product in category.products" :key="product.id">
-                            <div class="col-4" v-if="product.product_images.length == 0">
-                                <img src="/images/no-photo.png" style="width: 120px; height: 120px;" />
+                        <div class="row mx-0 mb-3 product" v-for="product in category.products" :key="product.id">
+                            <div class="col-4 pr-0" v-if="product.product_images.length == 0">
+                                <img class="img-fluid" src="/images/no-photo.png" style="width: 120px; height: 120px;" />
                             </div>
-                            <div class="col-4" v-for="(image, index) in product.product_images" :key="image.id">
-                                <img v-if="index == 0" v-bind:src="image.url" style="width: 120px; height: 120px;" />
+                            <div class="col-4 pr-0" v-for="(image, index) in product.product_images" :key="image.id">
+                                <img class="img-fluid" v-if="index == 0" v-bind:src="image.url"/>
                             </div>
-                            <div class="col-8">
-                                <h5 class="card-title">{{product.name}}</h5>
+                            <div class="col-8 pr-0">
+                                <h5 class="card-title pt-1 mb-1">{{product.name}}</h5>
                                 <p class="card-text">{{product.price}}</p>
                                 <router-link :to="{name: 'product', params: { id: product.id }}" :title="product.name" class="btn btn-primary">Szczegóły</router-link>
                             </div>
