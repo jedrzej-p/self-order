@@ -43,8 +43,11 @@
                 <div class="col-12" v-else>
                     <form class="col-12 px-0" @submit.prevent="removeProductFromFavorite"><button type="submit" class="btn btn-primary">Usuń z ulubionych</button></form>
                 </div>
-                <div class="col-12 pt-3"> 
+                <div class="col-12 pt-3" v-if="isAddRating!=1"> 
                     <button class="btn btn-primary" @click="open_opinion_popup">Dodaj opinię</button>
+                </div>
+                <div class="col-12 pt-3" v-else> 
+                    <button class="btn btn-primary" @click="open_opinion_popup">Edytuj opinię</button>
                 </div>
                 <div v-if="product.description != null" class="col-12 col-lg-9 mt-3">
                     <h3>Opis</h3>
@@ -84,7 +87,7 @@
                 <button class="btn btn-danger py-1 px-2" @click="close_opinion_popup">X</button>
             </div>
             <div class="d-flex justify-content-center" style="width: 100%; height: 100%;"> 
-                <div class="col-12">
+                <div class="col-12" v-if="isAddRating!=1">
                     <form @submit.prevent="send_opinion">
                         <div class="col-12 px-0">
                             <div class="col-12">
@@ -112,6 +115,35 @@
                         </div>
                     </form>
                 </div>
+
+                <div class="col-12" v-else >
+                    <form @submit.prevent="update_opinion">
+                        <div class="col-12 px-0">
+                            <div class="col-12">
+                                Jak oceniasz danie?
+                            </div>
+                            <div class="col-12 py-4">
+                                <select class="form-control" v-model="userRating[0].rating" required>
+                                    <option v-bind:value="5">5</option>
+                                    <option v-bind:value="4">4</option>
+                                    <option v-bind:value="3">3</option>
+                                    <option v-bind:value="2">2</option>
+                                    <option v-bind:value="1">1</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-12 px-0"> 
+                            <div class="col-12"> 
+                                <textarea class="form-control" rows="4" cols="10" placeholder="Edytuj opinię" v-model="userRating[0].opinion" required></textarea>
+                            </div>
+                        </div>
+                        <div class="col-12 px-0 mt-3">
+                            <div class="col-12" style="display: flex; justify-content: center;"> 
+                                <input type="submit" class="btn btn-primary" value="Aktualizuj opinię">
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </main>
@@ -119,7 +151,7 @@
 
 <script>
 import { isLoggedIn } from "../../utils/jwt";
-import { getSuccessAlert } from "../../helpers/helpers";
+import { getSuccessAlert, getErrorsOrAlert } from "../../helpers/helpers";
 
 export default {
     data() {
@@ -136,12 +168,17 @@ export default {
             sum: '',
             avg: '',
             avg_round: '',
+            isAddRating: '',
+            userRating: {},
+            test: [],
         };
     },
     mounted(){
         this.loadProduct();
         this.CheckIfProductIsAddToFavorite();
         this.loadRatings();
+        this.CheckIfProductIsAddRating();
+        this.loadUserRating();
     },
     computed: {
         isLoggedIn() {
@@ -228,10 +265,53 @@ export default {
             }).then(res=>{
                 if(res.status==200)
                 {
+                    getSuccessAlert('Dodano Twoją opinię do potrawy')
                    window.location.reload();
                 }
             })
-        }
+        },
+
+        CheckIfProductIsAddRating() {
+            axios.get('/api/rating/product/' + this.$route.params.id).then(res=>{
+            if(res.status==200){
+                if(res.data) {
+                    this.isAddRating = true; 
+                }
+            }
+            }).catch(err=>{
+                console.log(err)
+            });
+        },
+
+        loadUserRating: function() {
+            axios.get("/api/rating/user/product/" + this.$route.params.id).then(res => {
+                if (res.status == 200) {
+                    this.userRating = res.data;
+                }
+            })
+        },
+
+        update_opinion: function()
+        {
+            // console.log('id:'+this.userRating[0].id+'opinion:'+ this.userRating[0].opinion+'rating:'+this.userRating[0].rating)
+            axios.post('/api/rating/user/product/update', {
+                product_id: this.$route.params.id,
+                rating_id: this.userRating[0].id,
+                opinion: this.userRating[0].opinion,
+                rating: this.userRating[0].rating,
+            }).then(res=>{
+                if(res.status==200)
+                {
+                    getSuccessAlert('Zaktualizowano Twoją opinię')
+                    window.location.reload();
+                }
+                else
+                {
+                    getErrorsOrAlert('Wystąpił błąd');
+                }
+            })
+        },
+
     }
 };
 </script>

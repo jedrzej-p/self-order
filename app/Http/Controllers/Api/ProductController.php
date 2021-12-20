@@ -37,8 +37,33 @@ class ProductController extends Controller
         $new_rating->product_id = $product_id;
         $new_rating->rating = $rating;
         $new_rating->opinion = $opinion;
+        $new_rating->user_id = Auth::user()->id;
 
         $new_rating->save();
+    }
+
+    public function VerifyProductRating($id) {
+        $rating = Rating::where('product_id', $id)->where('user_id', Auth::user()->id)->first();
+        if($rating) {
+            return 1; 
+        }
+    }
+
+    public function ProductUserRating($id) {
+        $rating_user = Rating::where('product_id', $id)->where('user_id', Auth::user()->id)->get();
+        
+        return response()->json($rating_user);
+    }
+
+    public function ProducerUserRatingUpdate(Request $request)
+    {
+        $rating_id = $request->rating_id;
+        $product_id = $request->product_id;
+        $rating = $request->rating;
+        $opinion = $request->opinion;
+        $user_id = Auth::user()->id;
+
+        $update_opinion = Rating::where('id', '=', $rating_id)->update(['rating'=>$rating, 'opinion'=>$opinion]);
     }
 
     public function search_products(Request $request)
@@ -50,13 +75,17 @@ class ProductController extends Controller
         {
             return response()->json(Product::where([['name', 'like', '%'.$search.'%'], ['category_id', '=', $select_category]])->with('product_images')->get()->toArray());
         }
-        if($search=='' && $select_category!='')
+        else if($search=='' && $select_category!='')
         {
             return response()->json(Product::where('category_id', '=', $select_category)->with('product_images')->get()->toArray());
         }
+        else if($search!='' && $select_category=='')
+        {
+            return response()->json(Product::where('name', 'like', '%'.$search.'%')->with('product_images')->get()->toArray());
+        }
         else
         {
-            return response()->json(Product::where('name', 'like', '%'.$search.'%')->orWhere('category_id', '=', $select_category)->with('product_images')->get()->toArray());
+            return response()->json(Product::with('product_images')->get()->toArray());
         }
     }
 
