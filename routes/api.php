@@ -37,6 +37,9 @@ Route::middleware( 'auth:api' )->group( function () {
     Route::post('/search_products', 'Api\ProductController@search_products');
     Route::get('/product/ratings/{id}', 'Api\ProductController@ratings');
     Route::post('/save_rating', 'Api\ProductController@save_rating');
+    Route::get('rating/product/{id}', 'Api\ProductController@VerifyProductRating');
+    Route::get('/rating/user/product/{id}', 'Api\ProductController@ProductUserRating');
+    Route::post('/rating/user/product/update', 'Api\ProductController@ProducerUserRatingUpdate');
 
     Route::post('/add-to-cart', 'Api\OrderController@addToCart');
     Route::post('/store-cart', 'Api\OrderController@storeCart');

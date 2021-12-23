@@ -16,7 +16,7 @@
                     </div>
                 <!-- </form> -->
             </div>
-            <div v-if="products.length==0">
+            <div v-if="search_bool==0">
                 <div class="category" v-for="category in categories" :key="category.id">
                     <h3 class="mb-3 font-weight-bold text-center">{{category.name}}</h3>
                     <div class="products">
@@ -39,6 +39,9 @@
             <div v-else> 
                 <div> 
                      <div class="products">
+                         <div class="col-12 d-flex justify-content-end p-2"> 
+                <button class="btn btn-danger py-1 px-2" @click="close_search">X</button>
+            </div>
                          <h2 class="text-center">Lista potraw, które spełniają kryteria wyszukiwania ({{products.length}})</h2>
                         <div class="row mb-3" v-for="product in products" :key="product.id">
                             <div class="col-4" v-if="product.product_images.length == 0">
@@ -70,6 +73,7 @@ export default {
             products: [],
             search: '',
             select_category: 0,
+            search_bool: 0,
         };
     },
     mounted(){
@@ -91,23 +95,24 @@ export default {
             });
         },
         searchProducts: function() {
+            console.log('search: '+this.search+'category: '+this.select_category,)
             axios.post('api/search_products', {
                 search: this.search,
                 select_category: this.select_category,
             }).then(res=>{
                 if(res.status==200)
                 {
-                    if(this.search.length>0 || this.select_category!=0)
-                    {
+                    
                         this.products = res.data;
-                    }
-                    else
-                    {
-                        this.products = [];
-                        //console.log('lol')
-                    }
+                        this.search_bool=1
+                    
                 }
             })
+        },
+
+        close_search: function()
+        {
+            this.search_bool=0
         }
     },
 };
