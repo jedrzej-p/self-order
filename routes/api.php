@@ -62,6 +62,13 @@ Route::middleware( 'auth:api' )->group( function () {
         Route::get('/admin/orders', 'Api\Dashboard\OrderController@index');
         Route::get('/admin/orders/status/{id}', 'Api\Dashboard\OrderController@getOrdersByStatus');
         Route::post('/admin/orders/change-status/{id}', 'Api\Dashboard\OrderController@changeStatus');
+
+        Route::post('/admin/meals', 'Api\Dashboard\MealController@index');
+        Route::get('/admin/meal/edit/{id}', 'Api\Dashboard\MealController@edit');
+        Route::post('/admin/meal/update', 'Api\Dashboard\MealController@update');
+        Route::get('/admin/meal/categories', 'Api\Dashboard\MealController@categories');
+        Route::post('/admin/meal/create', 'Api\Dashboard\MealController@create');
+        Route::get('/admin/meal/delete/{id}', 'Api\Dashboard\MealController@delete');
     });
 
 });
