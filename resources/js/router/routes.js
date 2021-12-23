@@ -13,6 +13,9 @@ import UserFavorites from "../components/profile/Favorites";
 
 //admin
 import AdminOrders from "../components/admin/orders/Index";
+import AdminMeals from "../components/admin/meals/Index";
+import AdminMealEdit from '../components/admin/meals/Edit';
+import AdminMealCreate from '../components/admin/meals/Create';
 
 export default [
     { path: "/", component: Home, name: "home" },
@@ -34,4 +37,9 @@ export default [
 
     //admin
     { path: '/admin/orders', name: 'admin-orders', component: AdminOrders },
+
+
+    { path: '/admin/meals', name: 'admin-meals', component: AdminMeals },
+    { path: '/admin/meal/edit/:id', name: 'admin-meal-edit', component: AdminMealEdit },
+    { path: '/admin/meal/create', name: 'admin-meal-create', component: AdminMealCreate },
 ];

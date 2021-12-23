@@ -2,6 +2,7 @@
     <div class="row mb-3">
         <div class="col-lg-12 col-12">
             <router-link :to="{ name: 'admin-orders' }" class="'btn btn-menu btn-lg profile-main-btn text-center">Zamówienia</router-link>
+            <router-link :to="{ name: 'admin-meals' }" class="'btn btn-menu btn-lg profile-main-btn text-center">Dania</router-link>
         </div>
     </div>
 </template>
