@@ -17,6 +17,12 @@ import AdminMeals from "../components/admin/meals/Index";
 import AdminMealEdit from '../components/admin/meals/Edit';
 import AdminMealCreate from '../components/admin/meals/Create';
 
+import AdminCategories from "../components/admin/categories/Index";
+import AdminCategoryEdit from '../components/admin/categories/Edit';
+import AdminCategoryCreate from '../components/admin/categories/Create';
+
+
+
 export default [
     { path: "/", component: Home, name: "home" },
     { path: "/login", component: Login, name: "login", meta: { requiresGuest: true } },
@@ -42,4 +48,9 @@ export default [
     { path: '/admin/meals', name: 'admin-meals', component: AdminMeals },
     { path: '/admin/meal/edit/:id', name: 'admin-meal-edit', component: AdminMealEdit },
     { path: '/admin/meal/create', name: 'admin-meal-create', component: AdminMealCreate },
+
+
+    { path: '/admin/categories', name: 'admin-categories', component: AdminCategories },
+    { path: '/admin/category/edit/:id', name: 'admin-category-edit', component: AdminCategoryEdit },
+    { path: '/admin/category/create', name: 'admin-category-create', component: AdminCategoryCreate },
 ];

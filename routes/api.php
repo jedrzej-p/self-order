@@ -69,6 +69,13 @@ Route::middleware( 'auth:api' )->group( function () {
         Route::get('/admin/meal/categories', 'Api\Dashboard\MealController@categories');
         Route::post('/admin/meal/create', 'Api\Dashboard\MealController@create');
         Route::get('/admin/meal/delete/{id}', 'Api\Dashboard\MealController@delete');
+
+
+        Route::post('/admin/categories', 'Api\Dashboard\CategoryController@index');
+        Route::get('/admin/category/edit/{id}', 'Api\Dashboard\CategoryController@edit');
+        Route::post('/admin/category/update', 'Api\Dashboard\CategoryController@update');
+        Route::post('/admin/category/create', 'Api\Dashboard\CategoryController@create');
+        Route::get('/admin/category/delete/{id}', 'Api\Dashboard\CategoryController@delete');
     });
 
 });
