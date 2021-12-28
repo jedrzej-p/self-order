@@ -4,6 +4,7 @@
             <router-link :to="{ name: 'admin-orders' }" class="'btn btn-menu btn-lg profile-main-btn text-center">Zamówienia</router-link>
             <router-link :to="{ name: 'admin-meals' }" class="'btn btn-menu btn-lg profile-main-btn text-center">Dania</router-link>
             <router-link :to="{ name: 'admin-categories' }" class="'btn btn-menu btn-lg profile-main-btn text-center">Kategorie</router-link>
+            <router-link :to="{ name: 'admin-users' }" class="'btn btn-menu btn-lg profile-main-btn text-center">Użytkownicy</router-link>
         </div>
     </div>
 </template>

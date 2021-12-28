@@ -76,6 +76,9 @@ Route::middleware( 'auth:api' )->group( function () {
         Route::post('/admin/category/update', 'Api\Dashboard\CategoryController@update');
         Route::post('/admin/category/create', 'Api\Dashboard\CategoryController@create');
         Route::get('/admin/category/delete/{id}', 'Api\Dashboard\CategoryController@delete');
+
+        Route::post('/admin/users', 'Api\Dashboard\UserController@index');
+        Route::post('/admin/user/permission', 'Api\Dashboard\UserController@change_permission');
     });
 
 });

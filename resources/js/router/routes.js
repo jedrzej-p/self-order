@@ -21,6 +21,8 @@ import AdminCategories from "../components/admin/categories/Index";
 import AdminCategoryEdit from '../components/admin/categories/Edit';
 import AdminCategoryCreate from '../components/admin/categories/Create';
 
+import AdminUsers from '../components/admin/users/Index';
+
 
 
 export default [
@@ -53,4 +55,6 @@ export default [
     { path: '/admin/categories', name: 'admin-categories', component: AdminCategories },
     { path: '/admin/category/edit/:id', name: 'admin-category-edit', component: AdminCategoryEdit },
     { path: '/admin/category/create', name: 'admin-category-create', component: AdminCategoryCreate },
+
+    {path: '/admin/users', name: 'admin-users', component: AdminUsers},
 ];
