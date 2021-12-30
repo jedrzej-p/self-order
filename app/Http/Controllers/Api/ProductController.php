@@ -50,7 +50,7 @@ class ProductController extends Controller
     }
 
     public function ProductUserRating($id) {
-        $rating_user = Rating::where('product_id', $id)->where('user_id', Auth::user()->id)->get();
+        $rating_user = Rating::where('product_id', $id)->where('user_id', Auth::user()->id)->first();
         
         return response()->json($rating_user);
     }

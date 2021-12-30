@@ -123,7 +123,7 @@
                                 Jak oceniasz danie?
                             </div>
                             <div class="col-12 py-4">
-                                <select class="form-control" v-model="userRating[0].rating" required>
+                                <select class="form-control" v-model="userRating.rating" required>
                                     <option v-bind:value="5">5</option>
                                     <option v-bind:value="4">4</option>
                                     <option v-bind:value="3">3</option>
@@ -134,7 +134,7 @@
                         </div>
                         <div class="col-12 px-0"> 
                             <div class="col-12"> 
-                                <textarea class="form-control" rows="4" cols="10" placeholder="Edytuj opinię" v-model="userRating[0].opinion" required></textarea>
+                                <textarea class="form-control" rows="4" cols="10" placeholder="Edytuj opinię" v-model="userRating.opinion" required></textarea>
                             </div>
                         </div>
                         <div class="col-12 px-0 mt-3">
@@ -296,9 +296,9 @@ export default {
             // console.log('id:'+this.userRating[0].id+'opinion:'+ this.userRating[0].opinion+'rating:'+this.userRating[0].rating)
             axios.post('/api/rating/user/product/update', {
                 product_id: this.$route.params.id,
-                rating_id: this.userRating[0].id,
-                opinion: this.userRating[0].opinion,
-                rating: this.userRating[0].rating,
+                rating_id: this.userRating.id,
+                opinion: this.userRating.opinion,
+                rating: this.userRating.rating,
             }).then(res=>{
                 if(res.status==200)
                 {
