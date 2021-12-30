@@ -11,7 +11,7 @@
                             <input class="form-control" type="text" v-model="name" required>
                         </div>
                         <div class="py-2"> 
-                            <input class="btn btn-success" type="submit">
+                            <input class="btn btn-success" type="submit" value="Dodaj">
                         </div>
                     </div>
                 </form>
