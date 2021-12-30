@@ -25,7 +25,7 @@
                                 <img class="img-fluid" src="/images/no-photo.png" style="width: 120px; height: 120px;" />
                             </div>
                             <div class="col-4 pr-0" v-for="(image, index) in product.product_images" :key="image.id">
-                                <img class="img-fluid" v-if="index == 0" v-bind:src="image.url"/>
+                                <img class="img-fluid" v-if="index == 0" v-bind:src="`/images/products/${image.url}`"/>
                             </div>
                             <div class="col-8 pr-0">
                                 <h5 class="card-title pt-1 mb-1">{{product.name}}</h5>
@@ -48,7 +48,7 @@
                                 <img src="/images/no-photo.png" style="width: 120px; height: 120px;" />
                             </div>
                             <div class="col-4" v-for="(image, index) in product.product_images" :key="image.id">
-                                <img v-if="index == 0" v-bind:src="image.url" style="width: 120px; height: 120px;" />
+                                <img v-if="index == 0" v-bind:src="`/images/products/${image.url}`" style="width: 120px; height: 120px;" />
                             </div>
                             <div class="col-8">
                                 <h5 class="card-title">{{product.name}}</h5>

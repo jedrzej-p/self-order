@@ -28,7 +28,7 @@
                             <div class="py-4">
                                 Zdjęcie główne:
                                 <div v-for="(meal, index) in meal.product_images" :key="meal.id">
-                                    <div :class="index == 0 ? '' : 'carouse-item'">
+                                    <div v-if="index==0">
                                         <img class="w-50" v-bind:src="`/images/products/${meal.url}`" alt="First slide"/>
                                     </div>
                                 </div>
