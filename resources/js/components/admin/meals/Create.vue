@@ -24,8 +24,12 @@
                             Cena:
                             <input class="form-control" type="number" step="0.01" v-model="price" required>
                         </div>
+                        <div>
+                            Zdjęcie: 
+                            <input class="form-control" type="file" v-on:change="onFileChange" required>
+                        </div>
                         <div class="py-2"> 
-                            <input class="btn btn-success" type="submit">
+                            <input class="btn btn-success" type="submit" value="Dodaj">
                         </div>
                     </div>
                 </form>
@@ -46,6 +50,7 @@ export default {
            category: '',
            price: '',
            description: '',
+           photo: '',
         }
     },
     components: {
@@ -55,6 +60,11 @@ export default {
         this.loadCategory();
     },
     methods: {
+        onFileChange(e){
+                console.log(e.target.files[0]);
+                this.photo = e.target.files[0]; 
+        },
+
         loadCategory: function(){
             axios.get('/api/admin/meal/categories').then(res=>{
                 if(res.status==200)
@@ -65,12 +75,20 @@ export default {
         },
 
         createMeal:function(){
-            axios.post('/api/admin/meal/create/', {
-                name: this.name,
-                category: this.category,
-                price: this.price,
-                description: this.description,
-            }).then(res=>{
+            const config = {
+                    headers: {
+                        'content-type': 'multipart/form-data'
+                    }
+                }
+
+                let data = new FormData();
+                data.append('name', this.name);
+                data.append('category', this.category);
+                data.append('price', this.price);
+                data.append('description', this.description);
+                data.append('photo', this.photo);
+
+            axios.post('/api/admin/meal/create/', data, config).then(res=>{
                 if(res.status==200){
                     getSuccessAlert("Produkt dodany");
                     window.location.href = "/admin/meals"

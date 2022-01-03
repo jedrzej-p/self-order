@@ -5,8 +5,8 @@
             <div v-if="product.product_images.length > 0" id="carouselExampleControls" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner">
                     <div v-for="(image, index) in product.product_images" :key="image.id">
-                        <div :class="index == 0 ? 'carousel-item active' : 'carouse-item'">
-                            <img class="d-block w-100" v-bind:src="image.url" alt="First slide" />
+                        <div v-if="index==0" :class="index == 0 ? 'carousel-item active' : 'carouse-item'">
+                            <img class="d-block w-50" v-bind:src="`/images/products/${image.url}`" alt="First slide" />
                         </div>
                     </div>
                 </div>
@@ -53,6 +53,20 @@
                     <h3>Opis</h3>
                     <p v-html="product.description"></p>
                 </div>
+            </div>
+            <!--Zdjęcia użytkowników-->
+            <div class="col-12 py-4 px-0">
+                <div class="col-12 p-0"> 
+                    <h4 class="p-0">Zdjęcia wykonane przez klientów</h4>
+                </div>
+                <div class="row">
+                    <div class="col-3" v-for="image in product_images_arr" :key="image.id">
+                        
+                            <img class="d-block py-2 w-100" v-bind:src="`/images/products/${image.url}`" alt="slide" />
+                        
+                    </div>
+                </div> 
+
             </div>
             <!-- Opinie o daniu -->
             <div class="row"> 
@@ -108,6 +122,11 @@
                                 <textarea class="form-control" rows="4" cols="10" placeholder="Napisz opinię" v-model="opinion" required></textarea>
                             </div>
                         </div>
+                        <div class="col-12 px-0">
+                            <div class="col-12">
+                                <input class="form-control" type="file" v-on:change="onFileChange">
+                            </div>
+                        </div>
                         <div class="col-12 px-0 mt-3">
                             <div class="col-12" style="display: flex; justify-content: center;"> 
                                 <input type="submit" class="btn btn-primary" value="Dodaj opinię">
@@ -123,7 +142,7 @@
                                 Jak oceniasz danie?
                             </div>
                             <div class="col-12 py-4">
-                                <select class="form-control" v-model="userRating[0].rating" required>
+                                <select class="form-control" v-model="userRating.rating" required>
                                     <option v-bind:value="5">5</option>
                                     <option v-bind:value="4">4</option>
                                     <option v-bind:value="3">3</option>
@@ -134,7 +153,12 @@
                         </div>
                         <div class="col-12 px-0"> 
                             <div class="col-12"> 
-                                <textarea class="form-control" rows="4" cols="10" placeholder="Edytuj opinię" v-model="userRating[0].opinion" required></textarea>
+                                <textarea class="form-control" rows="4" cols="10" placeholder="Edytuj opinię" v-model="userRating.opinion" required></textarea>
+                            </div>
+                        </div>
+                        <div class="col-12 px-0">
+                            <div class="col-12">
+                                <input class="form-control" type="file" v-on:change="onFileChange">
                             </div>
                         </div>
                         <div class="col-12 px-0 mt-3">
@@ -170,7 +194,9 @@ export default {
             avg_round: '',
             isAddRating: '',
             userRating: {},
-            test: [],
+            photo: '',
+            product_images_temp: [],
+            product_images_arr: [],
         };
     },
     mounted(){
@@ -186,10 +212,22 @@ export default {
         },
     },
     methods: {
+        onFileChange(e){
+                this.photo = e.target.files[0]; 
+        },
+
         loadProduct: function() {
         axios.get("/api/product/" + this.$route.params.id).then(res => {
             if (res.status == 200) {
                 this.product = res.data;
+                this.product_images_temp = res.data.product_images;
+
+                this.product_images_temp.forEach((value, index)=>{
+                    if(index!=0)
+                    {
+                        this.product_images_arr.push(value);
+                    }
+                })
             }
             }).catch(err => {
                 console.log(err);
@@ -258,11 +296,20 @@ export default {
         },
         send_opinion: function()
         {
-            axios.post('/api/save_rating', {
-                product_id: this.$route.params.id,
-                rating: this.rating,
-                opinion: this.opinion,
-            }).then(res=>{
+            const config = {
+                    headers: {
+                        'content-type': 'multipart/form-data'
+                    }
+                }
+
+                let data = new FormData();
+                data.append('product_id', this.$route.params.id);
+                data.append('rating', this.rating);
+                data.append('opinion', this.opinion);
+                data.append('photo', this.photo);
+
+
+            axios.post('/api/save_rating', data, config).then(res=>{
                 if(res.status==200)
                 {
                     getSuccessAlert('Dodano Twoją opinię do potrawy')
@@ -296,9 +343,9 @@ export default {
             // console.log('id:'+this.userRating[0].id+'opinion:'+ this.userRating[0].opinion+'rating:'+this.userRating[0].rating)
             axios.post('/api/rating/user/product/update', {
                 product_id: this.$route.params.id,
-                rating_id: this.userRating[0].id,
-                opinion: this.userRating[0].opinion,
-                rating: this.userRating[0].rating,
+                rating_id: this.userRating.id,
+                opinion: this.userRating.opinion,
+                rating: this.userRating.rating,
             }).then(res=>{
                 if(res.status==200)
                 {
@@ -311,6 +358,12 @@ export default {
                 }
             })
         },
+
+        openFormAddPhoto: function()
+        {
+            let container_add_photo = document.querySelector('.container-add-photo');
+            container_add_photo.classList.toggle("d-none");
+        }
 
     }
 };

@@ -12,7 +12,7 @@
                                 <input class="form-control" type="text" v-model="category.name" required>
                             </div>
                             <div class="py-2"> 
-                                <input class="btn btn-success" type="submit">
+                                <input class="btn btn-success" type="submit" value="Aktualizuj">
                             </div>
                         </div>
                     </form>

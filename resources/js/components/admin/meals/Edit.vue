@@ -25,8 +25,21 @@
                                 Cena:
                                 <input class="form-control" type="number" step="0.01" v-model="meal.price" required>
                             </div>
+                            <div class="py-4">
+                                Zdjęcie główne:
+                                <div v-for="(meal, index) in meal.product_images" :key="meal.id">
+                                    <div v-if="index==0">
+                                        <img class="w-50" v-bind:src="`/images/products/${meal.url}`" alt="First slide"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                Zdjęcie: 
+                                <input class="form-control" type="file" v-on:change="onFileChange">
+                            </div>
+
                             <div class="py-2"> 
-                                <input class="btn btn-success" type="submit">
+                                <input class="btn btn-success" type="submit" value="Aktualizuj">
                             </div>
                         </div>
                     </form>
@@ -55,6 +68,11 @@ export default {
         this.loadCategories();
     },
     methods: {
+        onFileChange(e){
+                console.log(e.target.files[0]);
+                this.photo = e.target.files[0]; 
+        },
+
         loadCategories: function(){
             axios.get('/api/admin/meal/categories').then(res=>{
                 if(res.status==200)
@@ -69,6 +87,7 @@ export default {
                 if(res.status==200)
                 {
                     this.meal=res.data;
+                    console.log(res.data)
                 }
             }).catch(err=>{
                 console.log(err)
@@ -77,13 +96,22 @@ export default {
 
         updateMeal: function()
         {
-            axios.post('/api/admin/meal/update', {
-                id: this.$route.params.id,
-                name: this.meal.name,
-                description: this.meal.description,
-                category: this.meal.category_id,
-                price: this.meal.price,
-            }).then(res=>{
+            const config = {
+                    headers: {
+                        'content-type': 'multipart/form-data'
+                    }
+                }
+
+                let data = new FormData();
+                data.append('id', this.$route.params.id);
+                data.append('name', this.meal.name);
+                data.append('category', this.meal.category_id);
+                data.append('price', this.meal.price);
+                data.append('description', this.meal.description);
+                data.append('photo', this.photo);
+                data.append('old_photo_id', this.meal.product_images[0].id);
+
+            axios.post('/api/admin/meal/update', data, config).then(res=>{
                 if(res.status==200)
                 {
                     getSuccessAlert("Danie zaktualizowane");

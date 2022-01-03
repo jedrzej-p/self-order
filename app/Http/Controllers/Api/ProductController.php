@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\Favorite;
 use App\Models\Rating;
+use App\Models\ProductsImage;
 use Auth;
 
 class ProductController extends Controller
@@ -40,6 +41,22 @@ class ProductController extends Controller
         $new_rating->user_id = Auth::user()->id;
 
         $new_rating->save();
+
+        if($request->file('photo'))
+        {
+            $file = $request->file('photo');
+            $fileName_temp = $file->getClientOriginalName();
+            $fileName = time().$fileName_temp;
+
+            $meal_photo = new ProductsImage;
+            $meal_photo->url = $fileName;
+            $meal_photo->product_id = $product_id;
+
+            $meal_photo->save();
+
+            $destinationPath = public_path().'/images/products' ;
+            $file->move($destinationPath,$fileName);
+        }
     }
 
     public function VerifyProductRating($id) {
@@ -50,7 +67,7 @@ class ProductController extends Controller
     }
 
     public function ProductUserRating($id) {
-        $rating_user = Rating::where('product_id', $id)->where('user_id', Auth::user()->id)->get();
+        $rating_user = Rating::where('product_id', $id)->where('user_id', Auth::user()->id)->first();
         
         return response()->json($rating_user);
     }
