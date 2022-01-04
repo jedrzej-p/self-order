@@ -55,15 +55,16 @@
                 </div>
             </div>
             <!--Zdjęcia użytkowników-->
-            <div class="col-12 py-4 px-0">
+            <div class="col-12 py-4 px-0" v-if="product.product_user_image.length>0">
                 <div class="col-12 p-0"> 
                     <h4 class="p-0">Zdjęcia wykonane przez klientów</h4>
                 </div>
                 <div class="row">
-                    <div class="col-3" v-for="image in product_images_arr" :key="image.id">
-                        
-                            <img class="d-block py-2 w-100" v-bind:src="`/images/products/${image.url}`" alt="slide" />
-                        
+                    <div class="col-3" v-for="(user_image) in product.product_user_image" :key="user_image.id">
+                        <div class="col-12 d-flex position-relative">
+                            <button class="d-flex position-absolute bg-danger px-2 py-1 rounded" style="right: 10px; top 10px;" v-if="user_image.user_id==current_user.id" @click.prevent="deleteUserImage(user_image.id)">X</button>
+                            <img class="d-block py-2 w-100" v-bind:src="`/images/products_users/${user_image.url}`" alt="slide" />
+                        </div>
                     </div>
                 </div> 
 
@@ -124,6 +125,7 @@
                         </div>
                         <div class="col-12 px-0">
                             <div class="col-12">
+                                Dodaj swoje zdjęcie do dania
                                 <input class="form-control" type="file" v-on:change="onFileChange">
                             </div>
                         </div>
@@ -158,6 +160,7 @@
                         </div>
                         <div class="col-12 px-0">
                             <div class="col-12">
+                                Dodaj swoje zdjęcie do dania
                                 <input class="form-control" type="file" v-on:change="onFileChange">
                             </div>
                         </div>
@@ -195,8 +198,8 @@ export default {
             isAddRating: '',
             userRating: {},
             photo: '',
-            product_images_temp: [],
-            product_images_arr: [],
+            current_user: {},
+            
         };
     },
     mounted(){
@@ -205,6 +208,7 @@ export default {
         this.loadRatings();
         this.CheckIfProductIsAddRating();
         this.loadUserRating();
+        this.getCurrentUser();
     },
     computed: {
         isLoggedIn() {
@@ -220,14 +224,6 @@ export default {
         axios.get("/api/product/" + this.$route.params.id).then(res => {
             if (res.status == 200) {
                 this.product = res.data;
-                this.product_images_temp = res.data.product_images;
-
-                this.product_images_temp.forEach((value, index)=>{
-                    if(index!=0)
-                    {
-                        this.product_images_arr.push(value);
-                    }
-                })
             }
             }).catch(err => {
                 console.log(err);
@@ -340,13 +336,21 @@ export default {
 
         update_opinion: function()
         {
-            // console.log('id:'+this.userRating[0].id+'opinion:'+ this.userRating[0].opinion+'rating:'+this.userRating[0].rating)
-            axios.post('/api/rating/user/product/update', {
-                product_id: this.$route.params.id,
-                rating_id: this.userRating.id,
-                opinion: this.userRating.opinion,
-                rating: this.userRating.rating,
-            }).then(res=>{
+            const config = {
+                    headers: {
+                        'content-type': 'multipart/form-data'
+                    }
+                }
+
+                let data = new FormData();
+                data.append('product_id', this.$route.params.id);
+                data.append('rating_id', this.userRating.id);
+                data.append('opinion', this.userRating.opinion);
+                data.append('rating', this.userRating.rating);
+                data.append('photo', this.photo);
+
+
+            axios.post('/api/rating/user/product/update', data, config).then(res=>{
                 if(res.status==200)
                 {
                     getSuccessAlert('Zaktualizowano Twoją opinię')
@@ -359,10 +363,31 @@ export default {
             })
         },
 
-        openFormAddPhoto: function()
+        getCurrentUser:function()
         {
-            let container_add_photo = document.querySelector('.container-add-photo');
-            container_add_photo.classList.toggle("d-none");
+            axios.get('/api/user').then(res => {
+                if(res.status==200)
+                {
+                   this.current_user = res.data;
+                }
+            })
+        },
+
+        deleteUserImage: function(id)
+        {
+            axios.post('/api/user/image_delete', {
+                image_id: id,
+            }).then(res=>{
+                if(res.status==200)
+                {
+                    getSuccessAlert("Usunięto zdjęcie");
+                    window.location.reload();
+                }
+                else
+                {
+                    getErrorsOrAlert("Wystąpił błąd");
+                }
+            })
         }
 
     }
