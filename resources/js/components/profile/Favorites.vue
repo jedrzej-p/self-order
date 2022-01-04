@@ -2,13 +2,13 @@
     <div class="container mb-3">
         <Menu />
         <div class="card-body table-responsive p-0">
-            <div class="products">
+            <div class="products" v-if="favorites.length > 0">
                 <div class="row mb-3" v-for="favorite in favorites" :key="favorite.id">
-                    <div class="col-4" v-if="favorite.product_images.length == 0">
-                        <img src="/images/no-photo.png" style="width: 120px; height: 120px;" />
+                    <div class="col-4" v-if="favorite.product_images[0]">
+                        <img v-bind:src="`/images/products/${favorite.product_images[0].url}`" style="width: 120px; height: 120px;" />
                     </div>
-                    <div class="col-4" v-for="(image, index) in favorite.product_images" :key="image.id">
-                        <img v-if="index == 0" v-bind:src="image.url" style="width: 120px; height: 120px;" />
+                    <div class="col-4" v-else>
+                        <img src="/images/static/no-photo.png" style="width: 120px; height: 120px;" />
                     </div>
                     <div class="col-8">
                         <h5 class="card-title">{{favorite.name}}</h5>
@@ -16,6 +16,9 @@
                         <router-link :to="{name: 'product', params: { id: favorite.id }}" :title="favorite.name" class="btn btn-primary">Szczegóły</router-link>
                     </div>
                 </div>
+            </div>
+            <div class="products" v-else>
+                Brak ulubionych. 
             </div>
         </div>
     </div>

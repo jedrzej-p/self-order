@@ -27,16 +27,16 @@ class UserController extends Controller
     }
 
     public function getOrders() {
-        return response()->json(Order::where('status', '!=', 1)->where('user_id', Auth::user()->id)->with('positions')->get()->toArray());
+        return response()->json(Order::where('status', '>', 0)->where('user_id', Auth::user()->id)->with('positions', 'positions.product', 'positions.product.product_images')->orderBy('id', 'desc')->get()->toArray());
     }
 
     public function getFavorites() {
         $products = Favorite::where('user_id', Auth::user()->id)->get();
         $p = array();
         foreach($products as $product) {
-            $p[] = $product->id;
+            $p[] = $product->product_id;
         }
-        return response()->json(Product::whereIn('id', $p)->get()->toArray());
+        return response()->json(Product::whereIn('id', $p)->with('product_images')->get()->toArray());
     }
 
 }

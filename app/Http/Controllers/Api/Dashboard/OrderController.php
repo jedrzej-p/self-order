@@ -18,11 +18,11 @@ class OrderController extends Controller
     }
 
     public function getOrdersByStatus($id) {
-        if($id = 5) {
-            return response()->json(Order::where('status', '!=', 0)->with('positions', 'positions.product', 'positions.product.product_images')->get()->toArray());
+        if($id == 4) {
+            return response()->json(Order::where('status', '!=', 0)->with('positions', 'positions.product', 'positions.product.product_images')->orderBy('id', 'desc')->get()->toArray());
         }
         else {
-            return response()->json(Order::where('status', '==', $request->status)->with('positions', 'positions.product', 'positions.product.product_images')->get()->toArray());
+            return response()->json(Order::where('status', '=', $id)->with('positions', 'positions.product', 'positions.product.product_images')->orderBy('id', 'desc')->get()->toArray());
         }
     }
 
