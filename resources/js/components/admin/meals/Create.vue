@@ -88,7 +88,7 @@ export default {
                 data.append('description', this.description);
                 data.append('photo', this.photo);
 
-            axios.post('/api/admin/meal/create/', data, config).then(res=>{
+            axios.post('/api/admin/meal/create', data, config).then(res=>{
                 if(res.status==200){
                     getSuccessAlert("Produkt dodany");
                     window.location.href = "/admin/meals"

@@ -38,7 +38,7 @@ export default {
     },
     methods: {
         createCategory:function(){
-            axios.post('/api/admin/category/create/', {
+            axios.post('/api/admin/category/create', {
                 name: this.name,
             }).then(res=>{
                 if(res.status==200){
