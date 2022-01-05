@@ -19,6 +19,7 @@
         "laravel/passport": "^10.0",
         "laravel/tinker": "^2.0",
         "nexmo/client": "^2.4",
+        "pusher/pusher-php-server": "^7.0",
         "rap2hpoutre/laravel-log-viewer": "^1.4"
     },
     "require-dev": {

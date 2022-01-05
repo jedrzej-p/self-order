@@ -22,15 +22,19 @@ Route::get('/email/verify/{id}/{hash}/{email}', 'Api\Auth\VerificationController
 
 Route::post('/notify/{id}', 'Api\OrderController@notify');
 
+//Route::post('subscriptions', 'Api\PushSubscriptionController@update');
+
 Route::middleware( 'auth:api' )->group( function () {
+
+    
 
     Route::get('/user/get-logged-user', 'Api\UserController@getLoggedUser');
     Route::get('/user/orders', 'Api\UserController@getOrders');
     Route::get('/user/favorites', 'Api\UserController@getFavorites');
     Route::post('/email/resend', 'Api\Auth\VerificationController@resend');
 
-  //  Route::post('subscriptions', 'Api\PushSubscriptionController@update');
-    // Route::post('subscriptions/delete', 'Api\PushSubscriptionController@destroy');
+  Route::post('subscriptions', 'Api\PushSubscriptionController@update');
+    Route::post('subscriptions/delete', 'Api\PushSubscriptionController@destroy');
 
     Route::get('/categories', 'Api\ProductController@getProducts');
     Route::get('/product/{id}', 'Api\ProductController@getProductDetails');

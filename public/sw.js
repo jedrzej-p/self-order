@@ -1,73 +1,98 @@
 (() => {
-    "use strict";
+  'use strict'
 
-    const CACHE_NAME = "self-order-v1";
+  const WebPush = {
+    init () {
+      self.addEventListener('push', this.notificationPush.bind(this))
+      self.addEventListener('notificationclick', this.notificationClick.bind(this))
+      self.addEventListener('notificationclose', this.notificationClose.bind(this))
+    },
 
-    const WebPush = {
-        init() {
-            self.addEventListener("install", this.install.bind(this));
-            self.addEventListener("activate", this.activate.bind(this));
-            self.addEventListener("fetch", this.fetch.bind(this));
-            self.addEventListener("push", this.notificationPush.bind(this));
-            self.addEventListener("notificationclick", this.notificationClick.bind(this));
-        },
+    /**
+     * Handle notification push event.
+     *
+     * https://developer.mozilla.org/en-US/docs/Web/Events/push
+     *
+     * @param {NotificationEvent} event
+     */
+    notificationPush (event) {
+      if (!(self.Notification && self.Notification.permission === 'granted')) {
+        return
+      }
 
-        install(event) {
-            // zapisanie w cache zasobów
-            event.waitUntil(caches.open(CACHE_NAME).then((cache) => cache.addAll(["/offline/css/app.css", "/offline/favicon.ico", "/offline/images/home-title.png", "/offline/images/home-logo.png", "/offline/images/home.png", "/offline/offline.html", "/offline/js/scripts.js"])));
-        },
+      // https://developer.mozilla.org/en-US/docs/Web/API/PushMessageData
+      if (event.data) {
+        event.waitUntil(
+          this.sendNotification(event.data.json())
+        )
+      }
+    },
 
-        activate(event) {
-            // usunięcie wszystkich baz cache's o nazwie innej niż CACHE_NAME
-            event.waitUntil(caches.keys().then((cacheNames) => Promise.all(cacheNames.filter((cacheName) => cacheName !== CACHE_NAME).map((cacheName) => caches.delete(cacheName)))));
-        },
+    /**
+     * Handle notification click event.
+     *
+     * https://developer.mozilla.org/en-US/docs/Web/Events/notificationclick
+     *
+     * @param {NotificationEvent} event
+     */
+    notificationClick (event) {
+      // console.log(event.notification)
 
-        fetch(event) {
-            const url = new URL(event.request.url);
+      if (event.action === 'some_action') {
+        // Do something...
+      } else {
+        self.clients.openWindow('/')
+      }
+    },
 
-            // jeżeli żądanie o stronę główną
-            if (url.pathname === "/" || url.pathname === "/context") {
-                event.respondWith(
-                    fetch(event.request)
-                        // najprawdopobniej brak połączenia z internetem
-                        .catch((err) => {
-                            console.log(err);
-                            return caches.open(CACHE_NAME).then((cache) => cache.match("/offline/offline.html"));
-                        })
-                );
-            }
+    /**
+     * Handle notification close event (Chrome 50+, Firefox 55+).
+     *
+     * https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerGlobalScope/onnotificationclose
+     *
+     * @param {NotificationEvent} event
+     */
+    notificationClose (event) {
+      self.registration.pushManager.getSubscription().then(subscription => {
+        if (subscription) {
+          this.dismissNotification(event, subscription)
+        }
+      })
+    },
 
-            if (url.pathname.includes("/offline")) {
-                event.respondWith(caches.open(CACHE_NAME).then((cache) => cache.match(event.request)));
-            }
-        },
+    /**
+     * Send notification to the user.
+     *
+     * https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerRegistration/showNotification
+     *
+     * @param {PushMessageData|Object} data
+     */
+    sendNotification (data) {
+      return self.registration.showNotification(data.title, data)
+    },
 
-        notificationPush(event) {
-            if (!(self.Notification && self.Notification.permission === "granted")) {
-                return;
-            }
-            var msg = event.data.text();
-            console.log(msg);
-            if (event.data) {
-              //  console.log(event.data.json());
-                event.waitUntil(this.sendNotification(event.data.json()));
-            }
-        },
+    /**
+     * Send request to server to dismiss a notification.
+     *
+     * @param  {NotificationEvent} event
+     * @param  {String} subscription.endpoint
+     * @return {Response}
+     */
+    dismissNotification ({ notification }, { endpoint }) {
+      if (!notification.data || !notification.data.id) {
+        return
+      }
 
-        notificationClick(event) {
-            // console.log(event.notification)
+      const data = new FormData()
+      data.append('endpoint', endpoint)
 
-            if (event.action === "some_action") {
-                // Do something...
-            } else {
-                self.clients.openWindow("/");
-            }
-        },
+      // Send a request to the server to mark the notification as read.
+      fetch(`/notifications/${notification.data.id}/dismiss`, {
+        method: 'POST',
+        body: data
+      })
+    }
+  }
 
-        sendNotification(data) {
-            return self.registration.showNotification(data.title, data);
-        },
-    };
-
-    WebPush.init();
-})();
+  WebPush.init()
+})()
