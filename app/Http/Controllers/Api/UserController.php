@@ -10,12 +10,13 @@ use App\Models\Order;
 use App\Models\Tools;
 use App\Models\Favorite;
 use App\Models\Product;
+use App\Models\ProductsUsersImage;
 use Auth;
 use Exception;
 
 class UserController extends Controller
 {
-
+    
     public function getLoggedUser(Request $request)
     {
         try {
@@ -37,6 +38,19 @@ class UserController extends Controller
             $p[] = $product->product_id;
         }
         return response()->json(Product::whereIn('id', $p)->with('product_images')->get()->toArray());
+    }
+
+    public function getCurrentUser()
+    {
+        $current_user = User::where('id', '=', Auth::user()->id)->first();
+        return response()->json($current_user);
+    }
+
+    public function image_delete(Request $request)
+    {
+        $image_id = $request->image_id;
+
+        $delete_image = ProductsUsersImage::where('id', '=', $image_id)->delete();
     }
 
 }

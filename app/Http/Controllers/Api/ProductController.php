@@ -9,6 +9,7 @@ use App\Models\Product;
 use App\Models\Favorite;
 use App\Models\Rating;
 use App\Models\ProductsImage;
+use App\Models\ProductsUsersImage;
 use Auth;
 
 class ProductController extends Controller
@@ -18,7 +19,7 @@ class ProductController extends Controller
     }
 
     public function getProductDetails($id) {
-        return response()->json(Product::where('id', $id)->with('product_images')->first()->toArray());
+        return response()->json(Product::where('id', $id)->with('product_images', 'product_user_image')->first()->toArray());
     }
 
     public function ratings(Request $request)
@@ -48,13 +49,14 @@ class ProductController extends Controller
             $fileName_temp = $file->getClientOriginalName();
             $fileName = time().$fileName_temp;
 
-            $meal_photo = new ProductsImage;
+            $meal_photo = new ProductsUsersImage;
             $meal_photo->url = $fileName;
             $meal_photo->product_id = $product_id;
+            $meal_photo->user_id = Auth::user()->id;
 
             $meal_photo->save();
 
-            $destinationPath = public_path().'/images/products' ;
+            $destinationPath = public_path().'/images/products_users' ;
             $file->move($destinationPath,$fileName);
         }
     }
@@ -79,6 +81,24 @@ class ProductController extends Controller
         $rating = $request->rating;
         $opinion = $request->opinion;
         $user_id = Auth::user()->id;
+
+        if($request->file('photo'))
+        {
+            $file = $request->file('photo');
+            $fileName_temp = $file->getClientOriginalName();
+            $fileName = time().$fileName_temp;
+
+            $meal_photo = new ProductsUsersImage;
+            $meal_photo->url = $fileName;
+            $meal_photo->product_id = $product_id;
+            $meal_photo->user_id = Auth::user()->id;
+
+            $meal_photo->save();
+
+            $destinationPath = public_path().'/images/products_users' ;
+            $file->move($destinationPath,$fileName);
+        }
+        
 
         $update_opinion = Rating::where('id', '=', $rating_id)->update(['rating'=>$rating, 'opinion'=>$opinion]);
     }

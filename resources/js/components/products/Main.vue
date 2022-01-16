@@ -22,7 +22,7 @@
                     <div class="products">
                         <div class="row mx-0 mb-3 product" v-for="product in category.products" :key="product.id">
                             <div class="col-4 pr-0" v-if="product.product_images.length == 0">
-                                <img class="img-fluid" src="/images/no-photo.png" style="width: 120px; height: 120px;" />
+                                <img class="img-fluid" src="/images/static/no-photo.png" style="width: 120px; height: 120px;" />
                             </div>
                             <div class="col-4 pr-0" v-for="(image, index) in product.product_images" :key="image.id">
                                 <img class="img-fluid" v-if="index == 0" v-bind:src="`/images/products/${image.url}`"/>
@@ -45,7 +45,7 @@
                          <h2 class="text-center">Lista potraw, które spełniają kryteria wyszukiwania ({{products.length}})</h2>
                         <div class="row mb-3" v-for="product in products" :key="product.id">
                             <div class="col-4" v-if="product.product_images.length == 0">
-                                <img src="/images/no-photo.png" style="width: 120px; height: 120px;" />
+                                <img src="/images/static/no-photo.png" style="width: 120px; height: 120px;" />
                             </div>
                             <div class="col-4" v-for="(image, index) in product.product_images" :key="image.id">
                                 <img v-if="index == 0" v-bind:src="`/images/products/${image.url}`" style="width: 120px; height: 120px;" />

@@ -38,6 +38,16 @@
                                 <input class="form-control" type="file" v-on:change="onFileChange">
                             </div>
 
+                            <div class="py-4"> 
+                                Zdjęcia dodane przez użytkowników
+                                <div class="row">
+                                    <div class="col-3 d-flex position-relative" v-for="(meal_user) in meal.product_user_image" :key="meal_user.id"> 
+                                        <button style="right: 10px; top: 10px" class="btn btn-danger px-2 py-1 position-absolute" @click.prevent="deleteUserImage(meal_user.id)">X</button>
+                                        <img class="w-100" v-bind:src="`/images/products_users/${meal_user.url}`" alt="First slide"/>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="py-2"> 
                                 <input class="btn btn-success" type="submit" value="Aktualizuj">
                             </div>
@@ -119,6 +129,23 @@ export default {
                 }
             })
         },
+
+        deleteUserImage: function(id)
+        {
+            axios.post('/api/user/image_delete', {
+                image_id: id,
+            }).then(res=>{
+                if(res.status==200)
+                {
+                    getSuccessAlert("Usunięto zdjęcie");
+                    window.location.reload();
+                }
+                else
+                {
+                    getErrorsOrAlert("Wystąpił błąd");
+                }
+            })
+        }
         
     },
     computed: {

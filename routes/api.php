@@ -25,16 +25,14 @@ Route::post('/notify/{id}', 'Api\OrderController@notify');
 //Route::post('subscriptions', 'Api\PushSubscriptionController@update');
 
 Route::middleware( 'auth:api' )->group( function () {
-
-    
-
     Route::get('/user/get-logged-user', 'Api\UserController@getLoggedUser');
     Route::get('/user/orders', 'Api\UserController@getOrders');
     Route::get('/user/favorites', 'Api\UserController@getFavorites');
     Route::post('/email/resend', 'Api\Auth\VerificationController@resend');
-
-  Route::post('subscriptions', 'Api\PushSubscriptionController@update');
-    Route::post('subscriptions/delete', 'Api\PushSubscriptionController@destroy');
+    Route::get('/user', 'Api\UserController@getCurrentUser');
+    Route::post('/user/image_delete', 'Api\UserController@image_delete');
+    //  Route::post('subscriptions', 'Api\PushSubscriptionController@update');
+    // Route::post('subscriptions/delete', 'Api\PushSubscriptionController@destroy');
 
     Route::get('/categories', 'Api\ProductController@getProducts');
     Route::get('/product/{id}', 'Api\ProductController@getProductDetails');

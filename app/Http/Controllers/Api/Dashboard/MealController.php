@@ -17,7 +17,7 @@ class MealController extends Controller
 
     public function edit($id)
     {
-        return response()->json(Product::where('id', '=', $id)->with('product_images')->first()->toArray());
+        return response()->json(Product::where('id', '=', $id)->with('product_images', 'product_user_image')->first()->toArray());
     }
 
     public function update(Request $request)
