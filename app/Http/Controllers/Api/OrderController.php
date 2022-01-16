@@ -114,20 +114,20 @@ class OrderController extends Controller
             session()->forget('order_id');
 
 
-         /*   $basic  = new \Nexmo\Client\Credentials\Basic('69711184', 'FzMzsOI7PrcpJAX0');
+          $basic  = new \Nexmo\Client\Credentials\Basic('056442ca', 'eA6IodTAQddanAIJ');
             $client = new \Nexmo\Client($basic);
 
             //wysyłanie SMS
             $message = $client->message()->send([
                 'to' => '48505294967',
                 'from' => 'Restauracja SelfOrder',
-                'text' => 'Dziekujemy za zlozenie zamowienia.'
+                'text' => 'Zlozono nowe zamowienie'
             ]);
 
             try {
                 Mail::to($order->email)->send(new OrderShipped($order));
             } catch (Exception $e) {
-            }  */
+            }  
 
         });
 

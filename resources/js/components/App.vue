@@ -24,7 +24,7 @@ export default {
     mounted() {
         const body = document.querySelector("body");
         body.classList.remove("is-loading");
-      //  registerServiceWorker(true).then(subscribe);
+        registerServiceWorker(true).then(subscribe);
     },
 };
 </script>

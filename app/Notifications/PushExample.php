@@ -38,9 +38,9 @@ class PushExample extends Notification
     public function toWebPush($notifiable, $notification)
     {
         return (new WebPushMessage)
-            ->title('Push Title!')
-            ->body('Push Body!')
-            ->action('Push Btn', 'view_account')
+            ->title('SelfOrder')
+            ->body('Zamówienie zostało złożone.')
+            ->action('Zobacz więcej', 'view_account')
             ->data(['id' => $notification->id]);
             // ->options(['TTL' => 1000]);
             // ->data(['id' => $notification->id])

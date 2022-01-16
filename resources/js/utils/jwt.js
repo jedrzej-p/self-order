@@ -7,8 +7,11 @@ export function login(token) {
 }
 
 export function logout() {
-    window.localStorage.removeItem("token");
-    window.location.replace("/");
+    axios.post("/api/logout")
+        .then(() => {
+            window.localStorage.removeItem("token");
+            window.location.replace("/");
+        });
 }
 
 export function isLoggedIn() {

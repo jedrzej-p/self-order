@@ -9,6 +9,24 @@
                                 <h2 class="text-center">Rejestracja</h2>
                                 <br>
                                 <form action="#" novalidate @submit.prevent="submit">
+                                     <div class="form-group row">
+                                        <label for="name" class="col-md-4 col-form-label font-weight-bold text-md-right">Imię</label>
+                                        <div class="col-md-6">
+                                            <input id="name" v-model="name" type="text" class="form-control" :class="{ 'is-invalid': errors.name }" />
+                                            <span v-if="errors.name" class="invalid-feedback" role="alert">
+                                                <strong>{{ errors.name[0] }}</strong>
+                                            </span>
+                                        </div>
+                                    </div>
+                                     <div class="form-group row">
+                                        <label for="surname" class="col-md-4 col-form-label font-weight-bold text-md-right">Nazwisko</label>
+                                        <div class="col-md-6">
+                                            <input id="surname" v-model="surname" type="text" class="form-control" :class="{ 'is-invalid': errors.surname }"  />
+                                            <span v-if="errors.surname" class="invalid-feedback" role="alert">
+                                                <strong>{{ errors.surname[0] }}</strong>
+                                            </span>
+                                        </div>
+                                    </div>
                                     <div class="form-group row">
                                         <label for="email" class="col-md-4 col-form-label font-weight-bold text-md-right">Adres e-mail</label>
                                         <div class="col-md-6">
@@ -62,6 +80,8 @@ export default {
         return {
             email: "",
             password: "",
+            name: "",
+            surname: "",
             password_confirmation: "",
             errors: {},
             isSubmitting: false,
@@ -78,6 +98,8 @@ export default {
             axios
                 .post("/api/register", {
                     email: this.email,
+                    name: this.name,
+                    surname: this.surname,
                     password: this.password,
                     password_confirmation: this.password_confirmation,
                 })

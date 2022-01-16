@@ -1,6 +1,6 @@
 <template>
     <nav class="navbar navbar-expand-lg navbar-light bg-light p-0 p-lg-3">
-        <a class="navbar-brand p-0 m-1" href="#">
+        <a class="navbar-brand p-0 m-1" href="/">
             <img src="/logo.png" width="50" height="50" alt="">
         </a>
         <!-- Przycisk hamburgera -->
