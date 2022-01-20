@@ -4,6 +4,7 @@ node_modules
 public/css
 public/images/*
 !public/images/*/
+public/images/products/*
 public/js
 public/mix-manifest.json
 public/offline/css/app.css
