@@ -6,52 +6,50 @@
                 <div class="carousel-inner">
                     <div v-for="(image, index) in product.product_images" :key="image.id">
                         <div v-if="index==0" :class="index == 0 ? 'carousel-item active' : 'carouse-item'">
-                            <img class="d-block w-50" v-bind:src="`/images/products/${image.url}`" alt="First slide" />
+                            <img class="img-fluid rounded" v-bind:src="`/images/products/${image.url}`" alt="First slide" />
                         </div>
                     </div>
                 </div>
                 <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Previous</span>
+                    <span class="sr-only">Poprzednie zdjęcie</span>
                 </a>
                 <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Next</span>
+                    <span class="sr-only">Następne zdjęcie</span>
                 </a>
             </div>
-            <div class="row">
+            <div class="row mt-3">
                 <div class="col-12 text-center">
-                    <h2 style="color: #2574A9">{{ product.name }}</h2>
+                    <h2>{{ product.name }}</h2>
                 </div>
-                <div class="col-12 col-lg-9">
-                    <span style="font-size: 19px;"><strong>Cena: </strong> {{ product.price }} zł</span>
+                <div class="col-12 col-lg-9 mb-2">
+                    <span style="font-size: 22px;"><strong>Cena: </strong> {{ product.price }} zł</span>
                 </div>
-                <form class="col-12 col-lg-3" @submit.prevent="addToCart">
-                    <div class="input-group mb-3">
-                        <input id="quantity" type="number" class="form-control" placeholder="Wybierz ilość" aria-label="Wybór ilości" aria-describedby="basic-addon2" name="quantity" v-model="quantity" min="1" step="1" required>
-                        <div class="input-group-append">
-                            <button class="btn btn-outline-primary" type="submit">Dodaj</button>
+                <div class="col-12">
+                    <div class="row mx-0 justify-content-between">
+                        <form @submit.prevent="addToCart" style="min-width: 280px">
+                            <div class="input-group mb-3">
+                                <input id="quantity" type="number" class="form-control" placeholder="Wybierz ilość" aria-label="Wybór ilości" aria-describedby="basic-addon2" name="quantity" v-model="quantity" min="1" step="1" required>
+                                <div class="input-group-append">
+                                    <button class="btn btn-primary" type="submit"><i class="fas fa-shopping-basket"></i></button>
+                                </div>
+                            </div>
+                            <span v-if="success" class="invalid-feedback" role="alert">
+                                <strong>{{ success }}</strong>
+                            </span>
+                        </form>
+                        <div v-if="isAddToFavorite == false">
+                            <form class="px-0" @submit.prevent="addProductToFavorite"><button type="submit" class="btn btn-primary"><i class="far fa-heart"></i></button></form>
+                        </div>
+                        <div v-else>
+                            <form class="px-0" @submit.prevent="removeProductFromFavorite"><button type="submit" class="btn btn-primary"><i class="fas fa-heart"></i></button></form>
                         </div>
                     </div>
-                    <span v-if="success" class="invalid-feedback" role="alert">
-                        <strong>{{ success }}</strong>
-                    </span>
-                </form>
-                <div class="col-12" v-if="isAddToFavorite == false">
-                    <form class="col-12 px-0" @submit.prevent="addProductToFavorite"><button type="submit" class="btn btn-primary">Dodaj do ulubionych</button></form>
-                </div>
-                <div class="col-12" v-else>
-                    <form class="col-12 px-0" @submit.prevent="removeProductFromFavorite"><button type="submit" class="btn btn-primary">Usuń z ulubionych</button></form>
-                </div>
-                <div class="col-12 pt-3" v-if="isAddRating!=1"> 
-                    <button class="btn btn-primary" @click="open_opinion_popup">Dodaj opinię</button>
-                </div>
-                <div class="col-12 pt-3" v-else> 
-                    <button class="btn btn-primary" @click="open_opinion_popup">Edytuj opinię</button>
                 </div>
                 <div v-if="product.description != null" class="col-12 col-lg-9 mt-3">
                     <h3>Opis</h3>
-                    <p v-html="product.description"></p>
+                    <p class="product-desc" v-html="product.description"></p>
                 </div>
             </div>
             <!--Zdjęcia użytkowników-->
@@ -70,38 +68,38 @@
 
             </div>
             <!-- Opinie o daniu -->
-            <div class="row"> 
-                <div class="col-12">
-                    <h2 class="text-left">Opinie ({{ratings.length}}) {{avg_round}}/5 </h2>
+            <div class="row mx-0 mb-4"> 
+                <div class="col-8 pl-0">
+                    <h3 class="text-left">Opinie ({{ratings.length}}) {{avg_round}}/5 </h3>
                 </div>
-                <div class="col-12 bg-light p-2">
-                    <div class="row">
-                        <div class="col-2">
-                            <span class="text-center">Ocena</span>
-                        </div> 
-                        <div class="col-10"> 
-                            Opinia
+                <div class="col-4 px-0 text-right" v-if="isAddRating!=1"> 
+                    <button class="btn btn-primary" @click="open_opinion_popup">Dodaj</button>
+                </div>
+                <div class="col-4 px-0 text-right" v-else> 
+                    <button class="btn btn-primary" @click="open_opinion_popup">Edytuj</button>
+                </div>
+                <div class="col-12 px-0 mt-2">
+                    <div class="row mx-0 rating" v-for="rating in ratings" :key="rating.id">
+                        <div class="col-12 rating-name text-left">
+                            <span>{{rating.user.name}}</span>
                         </div>
-                    </div>
-                </div>
-                <div class="col-12">
-                    <div class="row p-2" v-for="rating in ratings" :key="rating.id">
-                        <div class="col-2">
-                            <span class="text-center">{{rating.rating}}</span>
+                        <div class="col-12 rating-value text-left">
+                            <span>Ocena: {{rating.rating}}</span>
                         </div> 
-                        <div class="col-10"> 
+                        <div class="col-12 rating-desc"> 
                             {{rating.opinion}}
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- Modal z dodaniem opinii -->
+        <!-- Modal opinii -->
         <div v-else class="opinion_popup" style="position: fixed; top: 0px; left: 0px; background-color: #E8E8E8; width:100%; height: 100%;">
             <div class="col-12 d-flex justify-content-end p-2"> 
                 <button class="btn btn-danger py-1 px-2" @click="close_opinion_popup">X</button>
             </div>
             <div class="d-flex justify-content-center" style="width: 100%; height: 100%;"> 
+                <!-- Dodawanie opinii -->
                 <div class="col-12" v-if="isAddRating!=1">
                     <form @submit.prevent="send_opinion">
                         <div class="col-12 px-0">
@@ -136,7 +134,7 @@
                         </div>
                     </form>
                 </div>
-
+                <!-- Edycja opinii -->
                 <div class="col-12" v-else >
                     <form @submit.prevent="update_opinion">
                         <div class="col-12 px-0">
@@ -281,7 +279,7 @@ export default {
                             this.sum = list.reduce((a, b) => a + b, 0); 
                         })
                         this.avg = parseInt(this.sum)/this.ratings.length;
-                        this.avg_round = this.avg.toFixed(2);
+                        this.avg_round = this.avg;
                     } else {
                         this.avg_round = ""
                     }
