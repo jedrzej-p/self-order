@@ -24,9 +24,7 @@ class ProductController extends Controller
 
     public function ratings(Request $request)
     {
-        $id = $request->id;
-        
-        return response()->json(Rating::where('product_id', '=', $id)->get());
+        return response()->json(Rating::where('product_id', '=', $request->id)->with('user')->get());
     }
 
     public function save_rating(Request $request)
