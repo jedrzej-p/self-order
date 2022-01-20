@@ -22,7 +22,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-8 col-sm-6 col-12">
-                    <p class="copyright-text">Copyright &copy; 2021 SelfOrder</p>
+                    <p class="copyright-text pb-3">Copyright &copy; 2021 SelfOrder</p>
                 </div>
             </div>
         </div>
@@ -44,11 +44,9 @@ export default {
 
 <style lang="scss" scoped>
 .site-footer {
-  background-color: #f8f9fa !important;
   padding: 25px 0 20px;
   font-size: 15px;
   line-height: 24px;
-  color: #b3b3b3;
 }
 
 .site-footer hr {
@@ -57,19 +55,14 @@ export default {
 }
 
 .site-footer hr.small {
-  margin: 20px 0;
+  margin: 15px 0;
 }
 
 .site-footer h3 {
-  color: #737373;
   font-size: 16px;
   text-transform: uppercase;
   margin-top: 5px;
   letter-spacing: 2px;
-}
-
-.site-footer a {
-  color: #737373;
 }
 
 .site-footer a:hover {
@@ -86,17 +79,6 @@ export default {
   display: block;
 }
 
-.footer-links a {
-  color: #737373;
-}
-
-.footer-links a:focus,
-.footer-links a:active,
-.footer-links a:hover {
-  color: #737373;
-  text-decoration: none;
-}
-
 .footer-links.inline li {
   display: inline;
 }
@@ -106,10 +88,6 @@ export default {
 }
 
 @media (max-width: 991px) {
-  .site-footer [class^=col-] {
-    margin-bottom: 5px;
-  }
-
   .cont-mobile {
     padding-left: unset;
     padding-right: unset;
