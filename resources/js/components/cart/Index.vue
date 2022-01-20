@@ -6,20 +6,20 @@
                 <div class="col-12 text-center">
                     <h2>Twoje zamówienie</h2>
                 </div>
-                <div class="col-12 px-0 cart">
+                <div class="col-12 px-0 cart mb-3">
                     <div class="row mx-0 cart-item" v-for="position in cart.positions" :key="position.id">
                         <div class="cart-delete">
                             <form @submit.prevent="removeFromCart(position.id)"><button type="submit" class="btn btn-danger"><i class="far fa-trash-alt"></i></button></form>
                         </div>
                         <div class="col-11 px-0 mb-3 font-weight-bold">{{position.product.name}}</div>
-                        <div class="col-6 pl-0">Ilość: {{position.quantity}}</div>
-                        <div class="col-6 text-right px-0">Cena: {{position.price}} zł</div>
-                        <div class="col-12 text-right px-0">Wartość: {{(position.price * position.quantity).toFixed(2)}} zł</div>
+                        <div class="col-6 pl-0"><b>Ilość: {{position.quantity}}</b></div>
+                        <div class="col-6 text-right px-0"><b>Cena:</b> {{position.price}} zł</div>
+                        <div class="col-12 text-right px-0"><b>Wartość:</b> {{(position.price * position.quantity).toFixed(2)}} zł</div>
                         <div class="col-12 px-0 cart-hr"></div>
                     </div>
                 </div>
                 <div class="form-group col-12 px-0">
-                    <label for="table" class="col-form-label">Stolik:</label>
+                    <label for="table" class="col-form-label"><b>Stolik:</b></label>
                     <select v-model="table_id" class="form-control" id="table" @change="onChangeTables($event)" >
                         <option v-for="table in tables" :value="table.id" :key="table.id">
                             {{ table.table_nr }}
@@ -27,13 +27,13 @@
                     </select>
                 </div>
                 <div class="form-group col-12 px-0">
-                    <label for="additional_informations" class="col-form-label">Dodatkowe informacje:</label>
+                    <label for="additional_informations" class="col-form-label"><b>Dodatkowe informacje:</b></label>
                     <div>
                         <input class="form-control" type="text" name="additional_informations" v-model="additional_informations" @input="updateAdditionalInformations">
                     </div>
                 </div>
                 <div class="col-12 text-right">
-                    <p><b>Suma:</b> {{cart.value}}</p>
+                    <p><b>Suma:</b> {{cart.value}} zł</p>
                 </div>
                 <form method="POST" action="https://merch-prod.snd.payu.com/api/v2_1/orders">
                     <input type="hidden" name="customerIp" value="123.123.123.123"> 
