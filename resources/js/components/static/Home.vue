@@ -3,7 +3,7 @@
         <section id="cover">
             <div id="cover-caption">
                 <div id="container" class="container">
-                    <div class="row">
+                    <div class="row mx-0">
                         <div class="col-sm-6 offset-sm-3 text-center">
                             <router-link :to="{ name: startBtnRoute }" class="btn btn-primary btn-start">Start</router-link>
                         </div>

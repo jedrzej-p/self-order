@@ -1,10 +1,10 @@
 <template>
     <nav class="navbar navbar-expand-lg navbar-light bg-light p-0 p-lg-3">
-        <a class="navbar-brand p-0 m-1" href="/">
+        <router-link class="ml-3" :to="{ name: 'products' }">
             <img src="/logo.png" width="50" height="50" alt="">
-        </a>
+        </router-link>
         <!-- Przycisk hamburgera -->
-        <button class="navbar-toggler mr-2" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler mr-3 mt-3" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <!-- Navbar/Rozwijane menu -->
