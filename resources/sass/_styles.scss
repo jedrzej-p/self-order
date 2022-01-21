@@ -6,6 +6,7 @@
 
 a {
     word-break: break-all;
+    color: $pizzerro-bordero;
 }
 
 .app-loader {
@@ -117,7 +118,7 @@ footer {
 
 .card {
     padding: 50px 30px;
-    background: #fff;
+    background: $dark-dough;
     margin: auto;
 
 }
@@ -231,4 +232,15 @@ footer {
             display: none;
         }
     }
+}
+
+.payu-btn {
+    background: url(https://poland.payu.com/wp-content/uploads/sites/14/2020/05/PAYU_LOGO_LIME-990x640.png) no-repeat, $light-dough;
+    border-radius: 0.5rem;
+    border: none;
+    background-size: contain;
+    display: block;
+    width: 350px;
+    height: 100px;
+    margin: 0 auto;
 }

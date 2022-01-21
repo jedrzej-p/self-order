@@ -68,7 +68,7 @@
 
             </div>
             <!-- Opinie o daniu -->
-            <div class="row mx-0 mb-4"> 
+            <div class="row mx-0"> 
                 <div class="col-8 pl-0">
                     <h3 class="text-left">Opinie ({{ratings.length}}) {{avg_round}}/5 </h3>
                 </div>
@@ -79,7 +79,7 @@
                     <button class="btn btn-primary" @click="open_opinion_popup">Edytuj</button>
                 </div>
                 <div class="col-12 px-0 mt-2">
-                    <div class="row mx-0 rating" v-for="rating in ratings" :key="rating.id">
+                    <div class="row mx-0 rating mb-3" v-for="rating in ratings" :key="rating.id">
                         <div class="col-12 rating-name text-left">
                             <span>{{rating.user.name}}</span>
                         </div>
@@ -94,7 +94,7 @@
             </div>
         </div>
         <!-- Modal opinii -->
-        <div v-else class="opinion_popup" style="position: fixed; top: 0px; left: 0px; background-color: #E8E8E8; width:100%; height: 100%;">
+        <div v-else class="opinion_popup" style="position: fixed; top: 0px; left: 0px; width:100%; height: 100%; z-index: 10; background-color: inherit;">
             <div class="col-12 d-flex justify-content-end p-2"> 
                 <button class="btn btn-danger py-1 px-2" @click="close_opinion_popup">X</button>
             </div>
@@ -102,11 +102,11 @@
                 <!-- Dodawanie opinii -->
                 <div class="col-12" v-if="isAddRating!=1">
                     <form @submit.prevent="send_opinion">
-                        <div class="col-12 px-0">
+                        <div class="col-12 px-0 pb-2">
                             <div class="col-12">
                                 Jak oceniasz danie?
                             </div>
-                            <div class="col-12 py-4">
+                            <div class="col-12 pb-3">
                                 <select class="form-control" v-model="rating" required>
                                     <option v-bind:value="5">5</option>
                                     <option v-bind:value="4">4</option>
@@ -116,14 +116,14 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-12 px-0"> 
+                        <div class="col-12 px-0 pb-3"> 
                             <div class="col-12"> 
                                 <textarea class="form-control" rows="4" cols="10" placeholder="Napisz opinię" v-model="opinion" required></textarea>
                             </div>
                         </div>
-                        <div class="col-12 px-0">
+                        <div class="col-12 px-0 pb-3">
                             <div class="col-12">
-                                Dodaj swoje zdjęcie do dania
+                                <span class="pb-2">Dodaj swoje zdjęcie do dania</span>
                                 <input class="form-control" type="file" v-on:change="onFileChange">
                             </div>
                         </div>
@@ -138,10 +138,10 @@
                 <div class="col-12" v-else >
                     <form @submit.prevent="update_opinion">
                         <div class="col-12 px-0">
-                            <div class="col-12">
+                            <div class="col-12 pb-2">
                                 Jak oceniasz danie?
                             </div>
-                            <div class="col-12 py-4">
+                            <div class="col-12 pb-3">
                                 <select class="form-control" v-model="userRating.rating" required>
                                     <option v-bind:value="5">5</option>
                                     <option v-bind:value="4">4</option>
@@ -151,14 +151,14 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-12 px-0"> 
+                        <div class="col-12 px-0 pb-3"> 
                             <div class="col-12"> 
                                 <textarea class="form-control" rows="4" cols="10" placeholder="Edytuj opinię" v-model="userRating.opinion" required></textarea>
                             </div>
                         </div>
-                        <div class="col-12 px-0">
+                        <div class="col-12 px-0 pb-3">
                             <div class="col-12">
-                                Dodaj swoje zdjęcie do dania
+                                <span class="pb-2">Dodaj swoje zdjęcie do dania</span>
                                 <input class="form-control" type="file" v-on:change="onFileChange">
                             </div>
                         </div>

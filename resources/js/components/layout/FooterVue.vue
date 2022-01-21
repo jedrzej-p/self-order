@@ -1,7 +1,7 @@
 <template>
     <footer class="site-footer z2">
         <div class="container">
-            <div class="row">
+            <div class="row mx-0">
                 <div class="col-12 col-md-6">
                     <h3>Self-Order</h3>
                     <ul class="footer-links">
@@ -20,7 +20,7 @@
             <hr>
         </div>
         <div class="container">
-            <div class="row">
+            <div class="row mx-0">
                 <div class="col-md-8 col-sm-6 col-12">
                     <p class="copyright-text pb-3">Copyright &copy; 2021 SelfOrder</p>
                 </div>

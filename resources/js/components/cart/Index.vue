@@ -156,15 +156,3 @@ export default {
     }
 };
 </script>
-
-<style lang="scss" scoped>
-.payu-btn {
-    border: none;
-    background: url('https://poland.payu.com/wp-content/uploads/sites/14/2020/05/PAYU_LOGO_LIME-990x640.png') no-repeat;
-    background-size: contain;
-    display: block;
-    width: 350px;
-    height: 100px;
-    margin: 0 auto;
-}
-</style>

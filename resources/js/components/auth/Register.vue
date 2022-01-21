@@ -7,7 +7,6 @@
                         <div class="col-sm-6 offset-sm-3 text-center">
                             <div class="card">
                                 <h2 class="text-center">Rejestracja</h2>
-                                <br>
                                 <form action="#" novalidate @submit.prevent="submit">
                                      <div class="form-group row">
                                         <label for="name" class="col-md-4 col-form-label font-weight-bold text-md-right">Imię</label>

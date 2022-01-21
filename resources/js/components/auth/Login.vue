@@ -33,10 +33,10 @@
                                             <span v-if="isSubmitting" class="spinner-border spinner-border-sm" />
                                         </button>
                                         <div>
-                                            <router-link v-show="!isSubmitting" :to="{ name: 'password-request' }"> Zapomniałeś hasła?</router-link>
+                                            <router-link v-show="!isSubmitting" :to="{ name: 'password-request' }"> <b>Zapomniałeś hasła?</b></router-link>
                                         </div>
                                     </div>
-                                    Jezeli nie masz konta, <router-link v-show="!isSubmitting" :to="{ name: 'register' }">Zarejestruj się</router-link>
+                                    <b>Jeżeli nie masz konta, <router-link v-show="!isSubmitting" :to="{ name: 'register' }">Zarejestruj się</router-link></b>
                                 </form>
                             </div>
                         </div>
