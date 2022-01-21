@@ -190,7 +190,7 @@ export default {
             rating: '5',
             opinion: '',
             ratings: [],
-            sum: '',
+            sum: 0,
             avg: '',
             avg_round: '',
             isAddRating: '',
@@ -274,10 +274,10 @@ export default {
 
                     if(this.ratings.length > 0)
                     {
-                        this.ratings.forEach(e=>{
-                            list.push(e.rating);
-                            this.sum = list.reduce((a, b) => a + b, 0); 
-                        })
+                        for (let i = 0; i < this.ratings.length; i++) {
+                            this.sum = this.sum + parseInt(this.ratings[i].rating);
+                        }
+
                         this.avg = parseInt(this.sum)/this.ratings.length;
                         this.avg_round = this.avg;
                     } else {

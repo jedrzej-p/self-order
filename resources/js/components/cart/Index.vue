@@ -95,10 +95,7 @@ export default {
             "/api/cart")
             .then(res => {
             if (res.status == 200) {
-                
-             
-                    this.cart = res.data;
-                
+                this.cart = res.data;
             }
             })
             .catch(err => {
@@ -111,10 +108,7 @@ export default {
             "/api/tables")
             .then(res => {
             if (res.status == 200) {
-                
-             
-                    this.tables = res.data;
-                
+                this.tables = res.data;
             }
             })
             .catch(err => {
@@ -133,8 +127,7 @@ export default {
             axios.post('/api/store-cart').then( response => {
                 this.$router.push('/');
             }).catch((error) => {
-                console.log(error);
-                       
+                console.log(error);      
             });
         },
         loadSignature: function() {
@@ -143,14 +136,11 @@ export default {
             "/api/signature")
             .then(res => {
             if (res.status == 200) {
-                
-             
-                    this.signature = res.data;
-                
+                this.signature = res.data;
             }
             })
             .catch(err => {
-            console.log(err);
+                console.log(err);
             });
         },
     }
