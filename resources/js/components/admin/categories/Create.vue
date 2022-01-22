@@ -1,5 +1,5 @@
 <template>
-    <div class="container mb-3">
+    <div class="container bg mb-3">
         <Menu />
       
         <div class="card-body table-responsive p-0">

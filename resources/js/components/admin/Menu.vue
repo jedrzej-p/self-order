@@ -1,10 +1,10 @@
 <template>
-    <div class="row mb-3">
+    <div class="row my-3">
         <div class="col-lg-12 col-12">
-            <router-link :to="{ name: 'admin-orders' }" class="'btn btn-menu btn-lg profile-main-btn text-center">Zamówienia</router-link>
-            <router-link :to="{ name: 'admin-meals' }" class="'btn btn-menu btn-lg profile-main-btn text-center">Dania</router-link>
-            <router-link :to="{ name: 'admin-categories' }" class="'btn btn-menu btn-lg profile-main-btn text-center">Kategorie</router-link>
-            <router-link :to="{ name: 'admin-users' }" class="'btn btn-menu btn-lg profile-main-btn text-center">Użytkownicy</router-link>
+            <router-link :to="{ name: 'admin-orders' }" class="btn btn-menu btn-lg profile-main-btn text-center">Zamówienia</router-link>
+            <router-link :to="{ name: 'admin-meals' }" class="btn btn-menu btn-lg profile-main-btn text-center">Dania</router-link>
+            <router-link :to="{ name: 'admin-categories' }" class="btn btn-menu btn-lg profile-main-btn text-center">Kategorie</router-link>
+            <router-link :to="{ name: 'admin-users' }" class="btn btn-menu btn-lg profile-main-btn text-center">Użytkownicy</router-link>
         </div>
     </div>
 </template>
