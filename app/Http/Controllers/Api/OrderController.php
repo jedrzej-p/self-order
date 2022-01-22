@@ -120,14 +120,12 @@ class OrderController extends Controller
             //wysyłanie SMS
             $message = $client->message()->send([
                 'to' => '48505294967',
-                'from' => 'Restauracja SelfOrder',
+                'from' => 'SelfOrder',
                 'text' => 'Zlozono nowe zamowienie'
-            ]);
+            ]); 
 
-            try {
-                Mail::to($order->email)->send(new OrderShipped($order));
-            } catch (Exception $e) {
-            }  
+            $user = Auth::user();
+            $user->notify(new \App\Notifications\PushExample);
 
         });
 

@@ -130,8 +130,7 @@ class ProductController extends Controller
         $favorite->product_id = $request->product_id;
         $favorite->user_id = Auth::user()->id;
 
-        $user = Auth::user();
-        $user->notify(new \App\Notifications\PushExample);
+        
         $favorite->save();
 
         return response()->json([
