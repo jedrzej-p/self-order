@@ -1,5 +1,9 @@
 @import 'colors';
 
+html, body {
+    background-color: $dark-dough;
+}
+
 [v-cloak] {
     display: none;
 }
@@ -243,4 +247,52 @@ footer {
     width: 350px;
     height: 100px;
     margin: 0 auto;
+}
+
+.container.bg {
+    background-color: $dark-dough;
+
+    .content-list {
+        background-color: $light-dough;
+        border-radius: 0.5rem;
+
+        .content-list-header {
+            background-color: rgba(0, 0, 0, 0.05);
+            border-top-right-radius: 0.5rem;
+            border-top-left-radius: 0.5rem;
+        }
+
+        tr, th, td {
+            border-color: $dark-dough;
+            border-width: 2px;
+        }
+
+        .table thead th {
+            border-bottom: unset;
+        }
+        .table tr:first-of-type th {
+            border-top: unset;
+        }
+    }
+
+    .btn-menu {
+        border: unset;
+        border-bottom: 2px solid $dark-dough;
+
+        &:first-of-type {
+            border-top-left-radius: 0.5rem;
+            border-top-right-radius: 0.5rem;
+        }
+        &:last-of-type {
+            border-bottom-left-radius: 0.5rem;
+            border-bottom-right-radius: 0.5rem;
+            border: unset;
+        }
+    }
+    
+    .info-box {
+        background-color: $light-dough;
+        border-radius: 0.5rem;
+        padding: 10px 15px;
+    }
 }

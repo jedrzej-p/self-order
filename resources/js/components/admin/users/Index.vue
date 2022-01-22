@@ -1,23 +1,20 @@
 <template>
-    <div class="container mb-3">
+    <div class="container bg mb-3">
         <Menu />
-      
-        <div class="card-body">
+        <div class="card-body px-0">
             <div class="products">
-                <div class="col-12 d-flex justify-content-end"> 
-                    <div> 
-                        <input type="text" placeholder="Szukaj" v-model="search" @keyup="loadUsers">
-                    </div>
+                <div class="col-12 px-0 d-flex mb-3"> 
+                    <input class="form-control" type="text" placeholder="Szukaj" v-model="search" @keyup="loadUsers">
                 </div>
-                <div class="row" v-if="users.length>0">
-                    <div class="row col-12 p-2 bg-light">
+                <div class="col-12 px-0 content-list" v-if="users.length>0">
+                    <div class="row mx-0 p-2 content-list-header">
                         <div class="col-2"> Id </div>
                         <div class="col-2"> Imię </div>
                         <div class="col-2"> Nazwisko </div>
                         <div class="col-2"> E-mail </div>
                         <div class="col-2 text-center"> Akcje </div> 
                     </div>
-                    <div class="row col-12 p-2" v-for="user in users" :key="user.id">
+                    <div class="row p-2" v-for="user in users" :key="user.id">
                         <div class="col-2"> {{user.id}}</div>
                         <div class="col-2"> {{user.name}} </div>
                         <div class="col-2"> {{user.surname}} </div>
@@ -34,12 +31,10 @@
                                 <span class="slider round"></span>
                             </label>     
                         </div>
-                    
-                        
                     </div>
                 </div>
                 <div v-else> 
-                    <div class="col-12">Brak użytkowników</div>
+                    <div class="col-12 info-box">Brak użytkowników</div>
                 </div>
             </div>
         </div>

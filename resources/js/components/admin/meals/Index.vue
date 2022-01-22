@@ -1,33 +1,27 @@
 <template>
-    <div class="container mb-3">
+    <div class="container bg mb-3">
         <Menu />
-      
-        <div class="card-body">
+        <div class="card-body px-0">
             <div class="products">
-                <div class="col-12 d-flex justify-content-between"> 
+                <div class="col-12 px-0 d-flex justify-content-between mb-3"> 
                     <div> 
-                        <a :href="'/admin/meal/create'" class="btn btn-secondary">Dodaj</a>
+                        <a :href="'/admin/meal/create'" class="btn btn-primary">Dodaj</a>
                     </div>
                     <div> 
-                        <input type="text" placeholder="Szukaj" v-model="search" @keyup="loadMeals">
+                        <input class="form-control" type="text" placeholder="Szukaj" v-model="search" @keyup="loadMeals">
                     </div>
                 </div>
-                <div class="row"  v-if="meals.length>0">
-                    <div class="row col-12 p-2 bg-light">
+                <div class="col-12 px-0 content-list"  v-if="meals.length>0">
+                    <div class="row mx-0 p-2 content-list-header">
                         <div class="col-1"> Id </div>
-                        <div class="col-4"> Nazwa </div>
-                        <div class="col-1"> Cena </div>
-                        <div class="col-2"> Kategoria </div>
+                        <div class="col-6"> Nazwa </div>
                         <div class="col-4 text-center"> Akcje </div> 
                     </div>
-                    <div class="row col-12 p-2" v-for="meal in meals" :key="meal.id">
+                    <div class="row p-2" v-for="meal in meals" :key="meal.id">
                         <div class="col-1"> {{meal.id}}</div>
-                        <div class="col-4"> {{meal.name}} </div>
-                        <div class="col-1"> {{meal.price}}</div>
-                        <div class="col-2"> {{meal.category.name}}</div>
-                        <div class="col-2 d-flex justify-content-center"> <a class="btn btn-info" :href="'/admin/meal/edit/'+meal.id">Edytuj</a> </div> 
-                        <div class="col-2 d-flex justify-content-center"> <a class="btn btn-danger" @click.prevent="deleteMeal(meal.id)">Usuń</a> </div>
-                        
+                        <div class="col-6"> {{meal.name}} </div>
+                        <div class="col-2 px-0 d-flex justify-content-center"> <a class="btn btn-info" :href="'/admin/meal/edit/'+meal.id" style="height: fit-content;"><i class="fas fa-edit"></i></a> </div> 
+                        <div class="col-2 px-0 d-flex justify-content-center"> <a class="btn btn-danger" @click.prevent="deleteMeal(meal.id)" style="height: fit-content;"><i class="far fa-trash-alt"></i></a> </div>
                     </div>
                 </div>
                 <div v-else> 
