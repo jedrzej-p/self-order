@@ -58,7 +58,7 @@
                     <h4 class="p-0">Zdjęcia wykonane przez klientów</h4>
                 </div>
                 <div class="row">
-                    <div class="col-3" v-for="(user_image) in product.product_user_image" :key="user_image.id">
+                    <div class="col-12" v-for="(user_image) in product.product_user_image" :key="user_image.id">
                         <div class="col-12 d-flex position-relative">
                             <button class="d-flex position-absolute bg-danger px-2 py-1 rounded" style="right: 10px; top 10px;" v-if="user_image.user_id==current_user.id" @click.prevent="deleteUserImage(user_image.id)">X</button>
                             <img class="d-block py-2 w-100" v-bind:src="`/images/products_users/${user_image.url}`" alt="slide" />
