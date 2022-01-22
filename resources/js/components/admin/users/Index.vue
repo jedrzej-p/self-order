@@ -8,18 +8,12 @@
                 </div>
                 <div class="col-12 px-0 content-list" v-if="users.length>0">
                     <div class="row mx-0 p-2 content-list-header">
-                        <div class="col-2"> Id </div>
-                        <div class="col-2"> Imię </div>
-                        <div class="col-2"> Nazwisko </div>
-                        <div class="col-2"> E-mail </div>
-                        <div class="col-2 text-center"> Akcje </div> 
+                        <div class="col-8"> E-mail </div>
+                        <div class="col-4 text-center"> Akcje </div> 
                     </div>
                     <div class="row p-2" v-for="user in users" :key="user.id">
-                        <div class="col-2"> {{user.id}}</div>
-                        <div class="col-2"> {{user.name}} </div>
-                        <div class="col-2"> {{user.surname}} </div>
-                        <div class="col-4"> {{user.email}} </div>
-                        <div class="col-2" v-if="user.is_admin==1">
+                        <div class="col-8"> {{user.email}} </div>
+                        <div class="col-4" v-if="user.is_admin==1">
                             <label class="switch">
                                 <input type="checkbox" @click="changePermission(user.id, user.is_admin)" checked>
                                 <span class="slider round"></span>

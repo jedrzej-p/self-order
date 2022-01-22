@@ -26,7 +26,7 @@
                         </div>
                         <div>
                             Zdjęcie: 
-                            <input class="form-control" type="file" v-on:change="onFileChange" required>
+                            <input class="form-control" type="file" v-on:change="onFileChange">
                         </div>
                         <div class="py-2"> 
                             <input class="btn btn-success" type="submit" value="Dodaj">
