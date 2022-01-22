@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 */
 
 Route::post('/login', 'Api\Auth\LoginController@login');
+Route::post('logout', 'Api\Auth\LoginController@logout');
 Route::post('/register', 'Api\Auth\RegisterController@register');
 Route::post('/password/email', 'Api\Auth\ForgotPasswordController@sendResetLinkEmail');
 Route::post('/password/reset', 'Api\Auth\ResetPasswordController@reset');
@@ -21,6 +22,9 @@ Route::post('/password/reset', 'Api\Auth\ResetPasswordController@reset');
 Route::get('/email/verify/{id}/{hash}/{email}', 'Api\Auth\VerificationController@verify');
 
 Route::post('/notify/{id}', 'Api\OrderController@notify');
+
+Route::post('subscriptions', 'Api\PushSubscriptionController@update');
+Route::post('subscriptions/delete', 'Api\PushSubscriptionController@destroy');
 
 //Route::post('subscriptions', 'Api\PushSubscriptionController@update');
 
