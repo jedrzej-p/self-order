@@ -31,7 +31,7 @@ class MealController extends Controller
 
         $update = Product::where('id', '=', $id)->update(['name'=>$name, 'category_id'=>$category_id, 'description'=>$description, 'price'=>$price]);
 
-
+    
         if($request->file('photo'))
         {
             $file = $request->file('photo');
@@ -60,18 +60,25 @@ class MealController extends Controller
 
         $meal->save();
 
-        $file = $request->file('photo');
-        $fileName_temp = $file->getClientOriginalName();
-        $fileName = time().$fileName_temp;
-
         $meal_photo = new ProductsImage;
-        $meal_photo->url = $fileName;
+        if($request->file('photo')) {
+            $file = $request->file('photo');
+            $fileName_temp = $file->getClientOriginalName();
+            $fileName = time().$fileName_temp;
+            $meal_photo->url = $fileName;
+
+            $destinationPath = public_path().'/images/products' ;
+            $file->move($destinationPath,$fileName);
+        }
+        else {
+            $meal_photo->url = ' ';
+        }
+        
         $meal_photo->product_id = $meal->id;
 
         $meal_photo->save();
 
-        $destinationPath = public_path().'/images/products' ;
-        $file->move($destinationPath,$fileName);
+        
     }
 
     public function delete($id)
