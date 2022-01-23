@@ -92,10 +92,6 @@ export default {
     padding-left: unset;
     padding-right: unset;
   }
-
-  footer {
-    position: relative;
-  }
 }
 
 @media (max-width: 767px) {

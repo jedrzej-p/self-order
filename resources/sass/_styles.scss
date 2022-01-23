@@ -2,6 +2,7 @@
 
 html, body {
     background-color: $dark-dough;
+    height: 100%;
 }
 
 [v-cloak] {
@@ -95,7 +96,8 @@ body.is-loading {
 footer {
     width: 100%;
     color: #333;
-    background-color: grey;
+    position: sticky;
+    top: 100vh;
 }
 
 @media (max-width: 992px) {
